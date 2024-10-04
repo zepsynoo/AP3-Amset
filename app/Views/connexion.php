@@ -1,22 +1,30 @@
-<?= $this->extend('_layout') ?>
+<!DOCTYPE html>
+<html lang="fr">
 
-<?= $this->section('contenu') ?>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="description" content="">
+</head>
 
-<div class="heroe">
+<body>
+    <h1>Bienvenue sur la page de connexion</h1>
 
-            <h1>Bienvenue sur la page de connexion</h1>
+    <div>
+        <form>
+            <p>Se connecter</p>
+            <input type="identifiant" placeholder="identifiant"><br>
+            <input type="motDePasse" placeholder="mot de passe"><br>
+            <input type="button" value="Connexion"><br>
+            <!-- <a href="#">Mot de passe oublié</a> -->
+            <!-- lien de la page du code pour le CSS -->
+            <!-- https://believemy.com/r/creer-un-formulaire-de-connexion-glassmorphique -->
+        </form>
+    </div>
 
-            <h2>page de connexion </h2>
+    <div>
+        <button><a href="<?= url_to('accueil') ?>">redirection vers accueil</a></button>
+    </div>
+</body>
 
-        </div>
-        <div>
-            <button><a href="<?=url_to('accueil') ?>">redirection vers accueil</a></button>
-        </div>
-    </header>
-<!-- commencer le code ici  -->
-
-
-
-
-<?= $this->endsection() ?>
-
+</html>
