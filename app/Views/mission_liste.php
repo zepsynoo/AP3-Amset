@@ -1,6 +1,5 @@
-<?= $this->extend('_layout') ?>
-
-<?= $this->section('contenu') ?>
+<?= $this->extend('_layout')?>
+<?= $this->section('contenu')?>
 
 <div>
 
@@ -10,10 +9,14 @@
 
 </div>
 
-</header>
-<!-- commencer le code ici  -->
+<section>
+<?php
+        $table = new \CodeIgniter\View\Table();
 
+        $table->setHeading('Intitulé', 'Description', 'Client', 'Début', 'Fin');
+        
+    ?>
 
-
+</section>
 
 <?= $this->endSection() ?>
