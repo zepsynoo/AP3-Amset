@@ -4,9 +4,9 @@
 
 <div class="heroe">
 
-            <h1>Bienvenue sur la page de connexion</h1>
+            <h1>Bienvenue sur la page D'accueil</h1>
 
-            <h2>page de connexion </h2>
+            <h2>Page D'accueil </h2>
 
         </div>
         

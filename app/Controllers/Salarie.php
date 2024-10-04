@@ -4,13 +4,8 @@ namespace App\Controllers;
 
 class Salarie extends BaseController
 {
-    public function page(): string
+    public function liste(): string
     {
-        return view('connexion');
-    }
-
-    public function main(): string
-    {
-        return view('accueil');
+        return view('salaries_liste');
     }
 }
