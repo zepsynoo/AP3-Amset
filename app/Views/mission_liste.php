@@ -16,4 +16,4 @@
 
 
 
-<?= $this->endsection() ?>
+<?= $this->endSection() ?>
