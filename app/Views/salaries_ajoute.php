@@ -14,7 +14,7 @@
     <form action=<?= url_to('salarie_create') ?> method="post">
         <fieldset>
             <legend>Nouveau Salariés</legend>
-            
+
             <label for="prenom">Prénom :</label>
             <input id="PRENOM_SALARIE" name="PRENOM_SALARIE" type="text">
 
@@ -39,16 +39,7 @@
             <label for="ville">Ville :</label>
             <input id="VILLE_SALARIE" name="VILLE_SALARIE" type="text">
 
-<!-- --------------------------------------------------------------------------------------------------------------- -->
-            <label for="departement_nom">Profils :</label>
-            <select name="departement" id="departement">
-                <option value="">--Choissiser un Departement--</option>
-                <?php
-                foreach ($listeDepartements as $departement) {
-                    echo '<option value="' . $departement['id'] . '">' . $departement['code'] . '-' . $departement['nom'] . '</option>';
-                }
-                ?>
-            </select>
+            <!-- --------------------------------------------------------------------------------------------------------------- -->
 
 
 
