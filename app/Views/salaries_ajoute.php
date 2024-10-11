@@ -39,6 +39,7 @@
             <label for="ville">Ville :</label>
             <input id="VILLE_SALARIE" name="VILLE_SALARIE" type="text">
 
+<!-- --------------------------------------------------------------------------------------------------------------- -->
             <label for="departement_nom">Profils :</label>
             <select name="departement" id="departement">
                 <option value="">--Choissiser un Departement--</option>
