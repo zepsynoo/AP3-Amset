@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Controllers;
-
+/**
+ * Classe Salarier
+ */
 class Salarie extends BaseController
 {
     private $salarieModel;
@@ -13,46 +15,64 @@ class Salarie extends BaseController
 
     //-----------------------------------
     // Liste
-    public function liste(): string
+    public function liste()
     {
-        return view('salaries_liste');
-    }
-
-    //-----------------------------------
-    // Ajouter
-    public function ajout()
-    {
+        $listeSalaries = $this->salarieModel->findAll();
         return view(
-            'salaries_ajoute',
+            'salaries_liste',
             [
-                ''=>
+                'listeSalaries' => $listeSalaries
             ]
         );
     }
 
-    // Create
-    public function create(): string
+    //-----------------------------------
+    // Ajouter
+
+    public function ajout(): string
     {
-        return view('');
+        // $ajoutProfils = $this->profilsModel->findAll();
+        return view('salaries_ajoute');
+    }
+
+    // Create
+    public function create()
+    {
+        $salarieData = $this->request->getpost();
+        $this->salarieModel->save($salarieData);
+
+        return redirect('salarie_liste');
     }
 
     //-----------------------------------
     // Modifier
-    public function modif(): string
+    public function modif($salarie)
     {
-        return view('');
+        $modifSalaries = $this->salarieModel->find($salarie);
+
+        return view(
+            'salaries_modifier',
+            [
+                'afficheSalaries' => $modifSalaries
+            ]
+        );
     }
 
     // Update
-    public function update(): string
+    public function update()
     {
-        return view('');
+        $salarieData = $this->request->getpost();
+        $this->salarieModel->save($salarieData);
+
+        return redirect('salarie_liste');
     }
 
     //-----------------------------------
     // Delete
-    public function delete(): string
+    public function delete($salarie)
     {
-        return view('');
+        $this->salarieModel->delete($salarie);
+        
+        return redirect('salarie_liste');
     }
 }
