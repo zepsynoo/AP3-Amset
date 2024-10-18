@@ -262,7 +262,7 @@ table tbody tr {
 table tbody tr:nth-child(odd) {
     background-color: #ffffff;
 }
-
+/* ----------------------------------------------------------------------------------- */
 *,
 *:before,
 *:after {
@@ -274,9 +274,9 @@ table tbody tr:nth-child(odd) {
 form {
     max-width: 300px;
     margin: 50px auto;
-    padding: 20px 30px 0px;
-    background: #e7e7e7;
-    border-radius: 8px;
+    padding: 10px 10px 0px;
+    background: #00000000;
+    border-radius: 10px;
     font-size: 1.3em;
 }
 
@@ -362,3 +362,8 @@ label.light {
     }
 
 }
+
+table {
+    display: block;
+    margin: 0 auto;
+  }

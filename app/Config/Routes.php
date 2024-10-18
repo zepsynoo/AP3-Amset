@@ -69,7 +69,7 @@ $routes->get('modif-salarie-(:num)', 'Salarie::modif/$1', ['as' => 'salarie_modi
 $routes->post('modif-salarie', 'Salarie::update', ['as' => 'salarie_update']);
 
 // delete : http://amset.com/accueil/liste-salarie/suppr-salarie
-$routes->post('suppr-salarie-(:num)', 'Salarie::delete/$1', ['as' => 'salarie_delete']);
+$routes->post('suppr-salarie', 'Salarie::delete', ['as' => 'salarie_delete']);
 
 
 // --------------------------------------------------------

@@ -39,9 +39,7 @@
             <label for="ville">Ville :</label>
             <input id="VILLE_SALARIE" name="VILLE_SALARIE" type="text">
 
-            <!-- --------------------------------------------------------------------------------------------------------------- -->
-
-
+            <!------------------------------------------------------------------------------------------------------------------->
 
             <!-- <img src="chemin/vers/l'image.jpg" alt="Description de l'image" width="largeur" height="hauteur"> -->
 
