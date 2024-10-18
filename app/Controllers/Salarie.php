@@ -69,9 +69,10 @@ class Salarie extends BaseController
 
     //-----------------------------------
     // Delete
-    public function delete($salarie)
+    public function delete()
     {
-        $this->salarieModel->delete($salarie);
+        $salarieData = $this->request->getpost();
+        $this->salarieModel->delete($salarieData['ID_SALARIE']);
         
         return redirect('salarie_liste');
     }
