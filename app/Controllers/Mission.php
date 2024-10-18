@@ -41,8 +41,13 @@ class Mission extends BaseController
      * @return String 
      */
     public function ajout(): string
-    {   
-        return view('mission_ajoute');
+    {   $listeClient = $this->clientModel->findAll();
+        $listeProfil = $this->profilModel->findAll();
+
+        return view('mission_ajoute', [
+            'listeClient' => $listeClient,
+            'listeProfil' => $listeProfil
+        ]);
     }
 
     /**
@@ -53,7 +58,19 @@ class Mission extends BaseController
         $data = $this->request->getPost();
         $this->missionModel->save($data);
 
-        return redirect('mission_liste');
+        // récupérer l'id de mission généré lors de la précédente insertion
+        $nouvelMissionId = $this->missionModel->getInsertID();
+        // faire un var_dump sur $data pour analyser la structure
+        //var_dump($data);
+
+        // foreach sur les profils
+        // recup nombre de personnes pour le profil courant
+        // insert dans profil_mission... solution :
+        // > utiliser méthode spéciale (à créer) dans le modèle mission : addProfil($idMission, $idProfil, $nbProfils)
+            $this->missionModel->addProfil($nouvelMissionId);
+
+        // return redirect('mission_liste');
+        return null;
     }
 
     /**

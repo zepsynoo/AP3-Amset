@@ -17,7 +17,7 @@ class Mission extends Model
         'INTITULE_MISSION',
         'DESCRIPTION_MISSION',
         'DATE_DEBUT',
-        'DATE_DEBUT'
+        'DATE_FIN'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -45,4 +45,16 @@ class Mission extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function addProfil($idMission)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('profil_mission');
+
+        $builder->insert([
+                'ID_PROFIL' => 1,
+                'ID_MISSION' => $idMission,
+                'NOMBRE_PROFIL' => 88,
+            ]);
+    }
 }
