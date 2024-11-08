@@ -46,15 +46,15 @@ class Mission extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function addProfil($idMission)
+    public function addProfil($idMission, $idProfil, $nombreProfil)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('profil_mission');
 
         $builder->insert([
-                'ID_PROFIL' => 1,
-                'ID_MISSION' => $idMission,
-                'NOMBRE_PROFIL' => 88,
-            ]);
+            'ID_MISSION' => $idMission,
+            'ID_PROFIL' => $idProfil,
+            'NOMBRE_PROFIL' => $nombreProfil,
+        ]);
     }
 }

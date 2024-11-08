@@ -6,6 +6,7 @@
     <select name="ID_CLIENT">
         <?php
         //Affiche liste des clients pour choisir
+        // var_dump($listeClient);
         foreach ($listeClient as $client) {
             echo '<option value=' . $client['ID_CLIENT'] . '>' . $client['NOM'] . '</option>';
         }
@@ -36,8 +37,6 @@
     ?>
     <input type="submit" value="Valider">
 </form>
-<?php
-//
-?>
+
 
 <?= $this->endSection() ?>

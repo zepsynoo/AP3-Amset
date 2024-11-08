@@ -23,7 +23,7 @@
             $mission['DATE_DEBUT'],
             $mission['DATE_FIN'],
             '<a class="bouton" href="' . url_to('mission_affect', $mission['ID_CLIENT']) . '"> Affecter </a>',
-            '<a class="bouton" href="' . url_to('mission_modif', $mission['ID_CLIENT']) . '"> Modifier </a>',
+            '<a class="bouton" href="' . url_to('mission_modif', $mission['ID_MISSION']) . '"> Modifier </a>',
             '<a class="bouton" href="' . url_to('mission_delete') . '"> Supprimer </a>'
 
         );
