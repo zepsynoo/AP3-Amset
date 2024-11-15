@@ -7,17 +7,20 @@ namespace App\Controllers;
 class Salarie extends BaseController
 {
     private $salarieModel;
+    private $profilModel;
 
     public function __construct()
     {
         $this->salarieModel = model('Salarie');
+        $this->profilModel = model('Profil');
     }
 
     //-----------------------------------
     // Liste
     public function liste()
     {
-        $listeSalaries = $this->salarieModel->findAll();
+        $listeSalaries = $this->salarieModel->findJoinAll();
+        // $listeSalaries = $this->salarieModel->findAll();
         return view(
             'salaries_liste',
             [

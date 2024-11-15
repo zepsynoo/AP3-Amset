@@ -21,11 +21,12 @@
             use PhpParser\Node\Expr\AssignOp\Div;
 
             $table = new \CodeIgniter\View\Table();
-            $table->setHeading('Prenom', 'Nom', 'Civilité', 'Email', 'Téléphone', 'Adresse', 'Code Postal', 'Ville', 'modifier', 'supprimer');
+            $table->setHeading('Prenom', 'Nom', 'Civilité', 'Email', 'Téléphone', 'Adresse', 'Code Postal', 'Ville', 'Profils','modifier', 'supprimer');
+
+            var_dump($listeSalaries);
 
             foreach ($listeSalaries as $salarie) {
                 $table->addRow(
-                    // $salarie['IMG_SALARIE'],
                     $salarie['PRENOM_SALARIE'],
                     $salarie['NOM_SALARIE'],
                     $salarie['CIVILITE'],
@@ -34,6 +35,13 @@
                     $salarie['ADRESSE_SALARIE'],
                     $salarie['CODE_POSTAL_SALARIE'],
                     $salarie['VILLE_SALARIE'],
+                    // $salarie['LIBELLE'],
+
+                    // foreach ($listeProfils as $listeProfil){
+                    //     $listeProfil[]
+                    // },
+
+
                     '<a href="' . url_to('salarie_modif', $salarie['ID_SALARIE']) . '">Modifier</a>',
 
                     '<form method=post action="' . url_to('salarie_delete', $salarie['ID_SALARIE']) . '">

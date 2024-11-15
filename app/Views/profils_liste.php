@@ -11,7 +11,7 @@
 
 <h2>Liste des Profil</h2>
 <div>
-    <?= var_dump($listeProfils) ?>
+    <!-- ($listeProfils) -->
     <section>
         <form method=get action=<?= url_to('profils_ajout') ?>><button>Ajouter un Profils</button></form>
         <div>
