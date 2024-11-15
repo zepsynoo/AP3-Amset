@@ -57,4 +57,14 @@ class Mission extends Model
             'NOMBRE_PROFIL' => $nombreProfil,
         ]);
     }
+
+    public function getMissionProfil()
+    {
+        return (
+            $this->select('*')
+            ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
+            ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+            ->findAll()
+        );
+    }
 }
