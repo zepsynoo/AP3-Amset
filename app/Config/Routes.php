@@ -71,6 +71,9 @@ $routes->post('modif-salarie', 'Salarie::update', ['as' => 'salarie_update']);
 // delete : http://amset.com/accueil/liste-salarie/suppr-salarie
 $routes->post('suppr-salarie', 'Salarie::delete', ['as' => 'salarie_delete']);
 
+$routes->post('ajout-profil-salarie', 'Salarie::ajoutProfil', ['as' => 'ajout_profil_salarie']);
+$routes->post('suppr-profil-salarie', 'Salarie::supprProfil', ['as' => 'suppr_profil_salarie']);
+
 
 // --------------------------------------------------------
 

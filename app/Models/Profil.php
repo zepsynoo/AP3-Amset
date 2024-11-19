@@ -42,6 +42,19 @@ class Profil extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    public function getProfilsNotSalarie($idSalarie)
+    {
+        $db = \Config\Database::connect(); // Connexion à la base de données
 
+        $sql = 'SELECT profil.ID_PROFIL, profil.LIBELLE 
+            FROM `profil` 
+            LEFT JOIN `salarie_profil` 
+            ON `salarie_profil`.`ID_PROFIL` = `profil`.`ID_PROFIL` 
+            AND `salarie_profil`.`ID_SALARIE` = ? 
+            WHERE `salarie_profil`.`ID_PROFIL` IS NULL;';
+
+        // Exécution de la requête avec le paramètre lié
+        return $db->query($sql, [$idSalarie])->getResultArray();
+    }
     
 }

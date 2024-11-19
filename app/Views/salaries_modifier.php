@@ -2,7 +2,7 @@
 
 <?= $this->section('contenu') ?>
 
-<?php var_dump($afficheSalaries) ?>
+<?php var_dump($salarieAffiche) ?>
 
 <div>
 
@@ -18,31 +18,35 @@
         <fieldset>
             <legend>Modifier Salariés</legend>
 
-            <input id="ID_SALARIE" name="ID_SALARIE" type="hidden" value=<?= $afficheSalaries['ID_SALARIE'] ?>>
+            <input id="ID_SALARIE" name="ID_SALARIE" type="hidden" value=<?= $salarieAffiche['ID_SALARIE'] ?>>
 
             <label for="prenom">Prénom :</label>
-            <input id="PRENOM_SALARIE" name="PRENOM_SALARIE" type="text" value=<?= $afficheSalaries['PRENOM_SALARIE'] ?>>
+            <input id="PRENOM_SALARIE" name="PRENOM_SALARIE" type="text" value=<?= $salarieAffiche['PRENOM_SALARIE'] ?>>
 
             <label for="nom">nom :</label>
-            <input id="NOM_SALARIE" name="NOM_SALARIE" type="text" value=<?= $afficheSalaries['NOM_SALARIE'] ?>>
+            <input id="NOM_SALARIE" name="NOM_SALARIE" type="text" value=<?= $salarieAffiche['NOM_SALARIE'] ?>>
 
             <label for="civilite">Civilite :</label>
-            <input id="CIVILITE" name="CIVILITE" type="text" value=<?= $afficheSalaries['CIVILITE'] ?>>
-            
+            <select name="CIVILITE" id="civilite">
+                <option value="<?= $salarieAffiche['ID_SALARIE'] ?>"><?= $salarieAffiche['CIVILITE'] ?></option>
+                <option value="homme">homme</option>
+                <option value="femme">femme</option>
+            </select>
+
             <label for="email">email :</label>
-            <input id="EMAIL_SALARIE" name="EMAIL_SALARIE" type="text" value=<?= $afficheSalaries['EMAIL_SALARIE'] ?>>
+            <input id="EMAIL_SALARIE" name="EMAIL_SALARIE" type="text" value=<?= $salarieAffiche['EMAIL_SALARIE'] ?>>
 
             <label for="Telephone">Téléphone :</label>
-            <input id="TELEPHONE_SALARIE" name="TELEPHONE_SALARIE" type="text" value=<?= $afficheSalaries['TELEPHONE_SALARIE'] ?>>
+            <input id="TELEPHONE_SALARIE" name="TELEPHONE_SALARIE" type="text" value=<?= $salarieAffiche['TELEPHONE_SALARIE'] ?>>
 
             <label for="adresse">Adresse :</label>
-            <input id="ADRESSE_SALARIE" name="ADRESSE_SALARIE" type="text" value=<?= $afficheSalaries['ADRESSE_SALARIE'] ?>>
+            <input id="ADRESSE_SALARIE" name="ADRESSE_SALARIE" type="text" value=<?= $salarieAffiche['ADRESSE_SALARIE'] ?>>
 
             <label for="code-postal">Code-Postal :</label>
-            <input id="CODE_POSTAL_SALARIE" name="CODE_POSTAL_SALARIE" type="text" value=<?= $afficheSalaries['CODE_POSTAL_SALARIE'] ?>>
+            <input id="CODE_POSTAL_SALARIE" name="CODE_POSTAL_SALARIE" type="text" value=<?= $salarieAffiche['CODE_POSTAL_SALARIE'] ?>>
 
             <label for="ville">Ville :</label>
-            <input id="VILLE_SALARIE" name="VILLE_SALARIE" type="text" value=<?= $afficheSalaries['VILLE_SALARIE'] ?>>
+            <input id="VILLE_SALARIE" name="VILLE_SALARIE" type="text" value=<?= $salarieAffiche['VILLE_SALARIE'] ?>>
 
             <!-- <img src="chemin/vers/l'image.jpg" alt="Description de l'image" width="largeur" height="hauteur"> -->
 
@@ -52,9 +56,52 @@
                 <input type="file" id="IMG_SALARIE" name="IMG_SALARIE" accept="image/*" required>
             </form> -->
 
-            <input type="submit" value="Valider">
+            <!-- <input type="submit" value="Valider"> -->
+        </fieldset>
+        <fieldset>
+            <legend>Profils du salarie</legend>
+            <?php
+
+            foreach ($listeProfilsSalaries as $profil) {
+
+                echo '<label>' . $profil['LIBELLE'] . '</label><br>';
+                echo '<input type="hidden" name="ID_PROFIL[]" value="' . $profil['ID_PROFIL'] . '">';
+            }
+            ?>
+        </fieldset>
+        <input type="submit" value="Modifier">
+    </form>
+
+    <form method="post" action=" <?= url_to('suppr_profil_salarie') ?>">
+        <fieldset>
+            <legend>Supprimer un profil</legend>
+            <input id="ID_SALARIE" name="ID_SALARIE" type="hidden" value="<?= $salarieAffiche['ID_SALARIE'] ?>">
+            <select id="ID_PROFIL" name="ID_PROFIL">
+                <?php
+                foreach ($listeProfilsSalaries as $profil) {
+                    echo '<option value="' . $profil['ID_PROFIL'] . '" required>' . $profil['LIBELLE'] . '</option>';
+                }
+                ?>
+            </select>
+            <input type="submit" value="-">
         </fieldset>
     </form>
+
+    <form method="post" action=" <?= url_to('ajout_profil_salarie') ?>">
+        <fieldset>
+            <legend>Ajouter un profil</legend>
+            <input id="ID_SALARIE" name="ID_SALARIE" type="hidden" value="<?= $salarieAffiche['ID_SALARIE'] ?>">
+            <select id="ID_PROFIL" name="ID_PROFIL">
+                <?php
+                foreach ($listNonProfilSalarie as $profil) {
+                    echo '<option value="' . $profil['ID_PROFIL'] . '" required>' . $profil['LIBELLE'] . '</option>';
+                }
+                ?>
+            </select>
+            <input type="submit" value="+">
+        </fieldset>
+    </form>
+
 </section>
 
 

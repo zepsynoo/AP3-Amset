@@ -21,8 +21,12 @@
             <label for="nom">nom :</label>
             <input id="NOM_SALARIE" name="NOM_SALARIE" type="text">
 
-            <label for="civilite">Civilite :</label>
-            <input id="CIVILITE" name="CIVILITE" type="text">
+            <label for="civilite">Civilité :</label>
+            <select name="CIVILITE" id="civilite" required>
+                <option value="" disabled selected>Genre</option>
+                <option value="homme">Homme</option>
+                <option value="femme">Femme</option>
+            </select><br>
 
             <label for="email">email :</label>
             <input id="EMAIL_SALARIE" name="EMAIL_SALARIE" type="text">
@@ -39,20 +43,15 @@
             <label for="ville">Ville :</label>
             <input id="VILLE_SALARIE" name="VILLE_SALARIE" type="text">
 
-            <!------------------------------------------------------------------------------------------------------------------->
 
-            <!-- <img src="chemin/vers/l'image.jpg" alt="Description de l'image" width="largeur" height="hauteur"> -->
-
-            <!-- <h3>Upload d'une Image</h3>
-            <form action="upload_image.php" method="POST" enctype="multipart/form-data">
-                <label for="image">Sélectionner une image :</label>
-                <input type="file" id="IMG_SALARIE" name="IMG_SALARIE" accept="image/*" required>
-            </form> -->
+            <label for="ID_PROFIL">Profils</label>
+            <?php foreach ($listeProfils as $profil) {
+                echo '<input type="checkbox" name="profils[]" value=' . $profil['ID_PROFIL'] . '>' . $profil['LIBELLE'] . '</br>';
+            } ?>
 
             <input type="submit" value="Valider">
         </fieldset>
     </form>
 </section>
-
 
 <?= $this->endSection() ?>

@@ -14,42 +14,33 @@
 
     <section>
         <form method=get action=<?= url_to('salarie_ajout') ?>><button>Ajouter un Salariés</button></form>
-        <div>
+        <div class="table-container">
             <?php
-
             use \CodeIgniter\View\Table;
-            use PhpParser\Node\Expr\AssignOp\Div;
 
             $table = new \CodeIgniter\View\Table();
-            $table->setHeading('Prenom', 'Nom', 'Civilité', 'Email', 'Téléphone', 'Adresse', 'Code Postal', 'Ville', 'Profils','modifier', 'supprimer');
-
-            var_dump($listeSalaries);
+            $table->setHeading('Prenom', 'Nom', 'Civilité', 'Email', 'Téléphone', 'Adresse', 'Code-Postal', 'Ville', 'Profils', 'Modifier', 'Supprimer');
 
             foreach ($listeSalaries as $salarie) {
                 $table->addRow(
-                    $salarie['PRENOM_SALARIE'],
-                    $salarie['NOM_SALARIE'],
-                    $salarie['CIVILITE'],
-                    $salarie['EMAIL_SALARIE'],
-                    $salarie['TELEPHONE_SALARIE'],
-                    $salarie['ADRESSE_SALARIE'],
-                    $salarie['CODE_POSTAL_SALARIE'],
-                    $salarie['VILLE_SALARIE'],
-                    // $salarie['LIBELLE'],
-
-                    // foreach ($listeProfils as $listeProfil){
-                    //     $listeProfil[]
-                    // },
-
-
+                    esc($salarie['PRENOM_SALARIE']),
+                    esc($salarie['NOM_SALARIE']),
+                    esc($salarie['CIVILITE']),
+                    esc($salarie['EMAIL_SALARIE']),
+                    esc($salarie['TELEPHONE_SALARIE']),
+                    esc($salarie['ADRESSE_SALARIE']),
+                    esc($salarie['CODE_POSTAL_SALARIE']),
+                    esc($salarie['VILLE_SALARIE']),
+                    esc($salarie['profil']), // Profils concaténés
                     '<a href="' . url_to('salarie_modif', $salarie['ID_SALARIE']) . '">Modifier</a>',
-
-                    '<form method=post action="' . url_to('salarie_delete', $salarie['ID_SALARIE']) . '">
-	                <input type="hidden" name="ID_SALARIE" value="' . $salarie['ID_SALARIE'] . '">
-	                <input type="submit" value="Supprimer">
+                    '<form method="post" action="' . url_to('salarie_delete', $salarie['ID_SALARIE']) . '">
+                        <input type="hidden" name="ID_SALARIE" value="' . $salarie['ID_SALARIE'] . '">
+                        <input type="submit" value="Supprimer">
                     </form>'
                 );
             }
+
+            // Affichage de la table
             echo $table->generate();
             ?>
         </div>
