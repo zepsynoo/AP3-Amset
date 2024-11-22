@@ -28,10 +28,8 @@ class Mission extends BaseController
      */
     public function liste(): string
     {
-        //Variable qui récupère la table mission
         $listeMission = $this->missionModel->findAll();
-        $listeProfil = $this->profilModel->findAll();
-        $missionProfil = $this->missionModel->getMissionProfil();
+        $clientMissionProfil = $this->missionModel->getClientMissionProfil();
 
         //affecter un variable qui va contenir le salarié affecter
 
@@ -40,8 +38,7 @@ class Mission extends BaseController
         //Retourn la vue 'mission_liste'
         return view('mission_liste', [
             'listeMission' => $listeMission,
-            'listeProfil' => $listeProfil,
-            'missionProfil' => $missionProfil
+            'clientMissionProfils' => $clientMissionProfil
         ]);
     }
 

@@ -58,12 +58,14 @@ class Mission extends Model
         ]);
     }
 
-    public function getMissionProfil()
+    public function getClientMissionProfil()
     {
         return (
             $this->select('*')
+            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
             ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
             ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+            ->orderBy('profil_mission.ID_MISSION')
             ->findAll()
         );
     }
