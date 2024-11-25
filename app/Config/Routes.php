@@ -71,9 +71,6 @@ $routes->post('modif-salarie', 'Salarie::update', ['as' => 'salarie_update']);
 // delete : http://amset.com/accueil/liste-salarie/suppr-salarie
 $routes->post('suppr-salarie', 'Salarie::delete', ['as' => 'salarie_delete']);
 
-$routes->post('ajout-profil-salarie', 'Salarie::ajoutProfil', ['as' => 'ajout_profil_salarie']);
-$routes->post('suppr-profil-salarie', 'Salarie::supprProfil', ['as' => 'suppr_profil_salarie']);
-
 
 // --------------------------------------------------------
 
@@ -109,9 +106,13 @@ $routes->get('liste-clients', 'Client::liste', ['as' => 'client_liste']);
 $routes->get('ajout-client', 'Client::ajout', ['as' => 'client_ajout']);
 $routes->post('ajout-client', 'Client::create', ['as' => 'client_create']);
 
+
 // modif : http://amset.com/accueil/liste-client/modif-client
 $routes->get('modif-client-(:num)', 'Client::modif/$1', ['as' => 'client_modif']);
 $routes->post('modif-client', 'Client::update', ['as' => 'client_update']);
 
 // delete : http://amset.com/accueil/liste-client/suppr-client
 $routes->post('suppr-client', 'Client::delete', ['as' => 'client_delete']);
+$routes->get('suppr-client-(:num)', 'Client::delete/$1', ['as' => 'client_delete']);
+
+// image : http://amset.local/upload/logo.png
