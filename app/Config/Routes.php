@@ -10,12 +10,14 @@ use CodeIgniter\Router\RouteCollection;
 
 // Amset
 
+service('auth')->routes($routes);
+
 // page d'accueil : http://amset.com/
-$routes->get('/', 'Amset::page', ['as' => 'connexion']);  // redirection vers accueil (connexion en dure)
+// $routes->get('/', 'Amset::page', ['as' => 'connexion']);  // redirection vers accueil (connexion en dure)
 //$routes->post('connexion-(:num)', 'Connexion::connect/$1');
 
 // page d'accueil : http://amset.com/accueil/
-$routes->get('accueil', 'Amset::main', ['as' => 'accueil']);
+$routes->get('/', 'Amset::main', ['as' => 'accueil']);
 
 // --------------------------------------------------------
 

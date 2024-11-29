@@ -14,10 +14,21 @@
     <select name="ID_CLIENT">
         <?php
         //Affiche liste des clients pour choisir
+        // Find a way to make client select
+        $selected = "";
         foreach ($listeClient as $client) {
             // Find a way to make client select
-            echo '<option value="' . $client['ID_CLIENT'] . '" ' .  $client['ID_CLIENT'] == $mission['ID_CLIENT'] ? 'slected' : '' .  '>' . $client['NOM'] . '</option>';
+            if ($client['ID_CLIENT'] == $mission['ID_CLIENT']) {
+                $selected = "SELECTED";
+                // echo "yahou";
+            } else
+                $selected = "";
+
+            echo '<option value="' . $client['ID_CLIENT'] . '" ' . $selected . '>' . $client['NOM'] . '</option>';
         }
+
+
+
         ?>
     </select>
 
@@ -33,15 +44,18 @@
     <label for="DATE_FIN">Date fin</label>
     <input id="DATE_FIN" name="DATE_FIN" type="date" value=<?= $mission['DATE_FIN'] ?>>
 
-    <label for="profil">Profil</label>
-    <?php
-    // var_dump($listeProfil);
-    foreach ($missionJoins as $missionJoin) {
-        echo '<input type="checkbox" name="profils[]" value=' . $missionJoin['ID_PROFIL'] . '>' . $missionJoin['LIBELLE'];
-        echo '<input type="number" name=' . $missionJoin['ID_PROFIL'] . ' value="' . $missionJoin['NOMBRE_PROFIL'] . '"></br>';
-    }
+    <fieldset>
+        <legend>Profil</legend>
+        <?php
+        foreach ($missionJoins as $missionJoin) {
+            // echo '<input type="checkbox" name="profils[]" value=' . $missionJoin['ID_PROFIL'] . '>' . $missionJoin['LIBELLE'];
+            // echo '<input type="number" name=' . $missionJoin['ID_PROFIL'] . ' value="' . $missionJoin['NOMBRE_PROFIL'] . '"></br>';
 
-    ?>
+            echo '<p>' . $missionJoin['LIBELLE'] . ' : ' . $missionJoin['NOMBRE_PROFIL'] . '</p>';
+        }
+
+        ?>
+    </fieldset>
 
     <input type="submit" value="Valider">
 </form>

@@ -18,11 +18,22 @@ class Salarie extends BaseController
         $this->salarieProfilModel = model('SalarieProfil');
     }
 
+    private function isAuthorized(): bool
+    {
+        $user = auth()->user();
+        return $user->inGroup('admin') || $user->inGroup('rhu');
+    }
+
+
     //-----------------------------------
     // Liste
 
     public function liste()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         // Récupérer les salariés avec leurs profils
         $listeSalaries = $this->salarieModel->findAllAvecProfils();
 
@@ -38,8 +49,12 @@ class Salarie extends BaseController
     //-----------------------------------
     // Ajouter
 
-    public function ajout(): string
+    public function ajout()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $idSalaries = $this->salarieModel->find();
         $listeProfils = $this->profilModel->findAll();
 
@@ -54,6 +69,10 @@ class Salarie extends BaseController
     // Create
     public function create()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $salarieData = $this->request->getpost();
         $this->salarieModel->save($salarieData);
 
@@ -73,6 +92,10 @@ class Salarie extends BaseController
     // Modifier
     public function modif($salarieId)
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $salarie = $this->salarieModel->find($salarieId);
         $idSalarie = $salarie['ID_SALARIE'];
         $listeProfilsSalaries = $this->salarieModel->getProfil($salarieId);
@@ -90,6 +113,10 @@ class Salarie extends BaseController
     // Update
     public function update()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $salarieData = $this->request->getpost();
         $this->salarieModel->save($salarieData);
 
@@ -100,7 +127,10 @@ class Salarie extends BaseController
     // Delete
     public function delete()
     {
-        
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $salarieData = $this->request->getpost(['ID_SALARIE']);
         $this->salarieModel->deleteProfilsSalarie($salarieData);
         $this->salarieModel->delete($salarieData);
@@ -112,15 +142,23 @@ class Salarie extends BaseController
 
     public function ajoutProfil()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $idProfil = $this->request->getPost('ID_PROFIL');
         $idSalarie = $this->request->getPost('ID_SALARIE');
-        $this->salarieModel->addProfil($idProfil,$idSalarie);
+        $this->salarieModel->addProfil($idProfil, $idSalarie);
 
         return redirect()->to(url_to("salarie_modif", $idSalarie));
     }
 
     public function supprProfil()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         // $data = $this->request->getPost();
         $idSalarie = $this->request->getPost('ID_SALARIE');
         $idProfil = $this->request->getPost('ID_PROFIL');
@@ -128,7 +166,4 @@ class Salarie extends BaseController
 
         return redirect()->to(url_to("salarie_modif", $idSalarie));
     }
-
-
-
 }
