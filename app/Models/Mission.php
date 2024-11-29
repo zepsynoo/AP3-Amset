@@ -58,6 +58,7 @@ class Mission extends Model
         ]);
     }
 
+    //Methode pour afficher
     public function getClientMissionProfil()
     {
         return (
@@ -65,6 +66,20 @@ class Mission extends Model
             ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
             ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
             ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+            ->orderBy('profil_mission.ID_MISSION')
+            ->findAll()
+        );
+    }
+
+    //Methode pour afficher avec id de mission
+    public function getJoinMissionInfo($missionId)
+    {
+        return (
+            $this->select('*')
+            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
+            ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
+            ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+            ->where('mission.ID_MISSION', $missionId)
             ->orderBy('profil_mission.ID_MISSION')
             ->findAll()
         );

@@ -29,7 +29,7 @@ class Mission extends BaseController
     public function liste(): string
     {
         $listeMission = $this->missionModel->findAll();
-        $clientMissionProfil = $this->missionModel->getClientMissionProfil();
+        $clientMissionProfils = $this->missionModel->getClientMissionProfil();
 
         //affecter un variable qui va contenir le salarié affecter
 
@@ -38,7 +38,7 @@ class Mission extends BaseController
         //Retourn la vue 'mission_liste'
         return view('mission_liste', [
             'listeMission' => $listeMission,
-            'clientMissionProfils' => $clientMissionProfil
+            'clientMissionProfils' => $clientMissionProfils
         ]);
     }
 
@@ -92,8 +92,11 @@ class Mission extends BaseController
         $listeClient = $this->clientModel->findAll();
         $listeProfil = $this->profilModel->findAll();
 
+        $missionJoins = $this->missionModel->getJoinMissionInfo($missionId);
+
         return view('mission_modifier', [
             'mission' => $mission,
+            'missionJoins' => $missionJoins,
             'listeClient' => $listeClient,
             'listeProfil' => $listeProfil
         ]);
