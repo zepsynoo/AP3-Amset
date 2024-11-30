@@ -11,7 +11,6 @@ class Mission extends BaseController
     private $clientModel;
     private $profilModel;
 
-
     /**
      * Constructeur de la modèle Mission
      * Instanciation de modèl mission
@@ -23,24 +22,14 @@ class Mission extends BaseController
         $this->profilModel = model('Profil');
     }
 
-    private function isAuthorized(): bool
-    {
-        $user = auth()->user();
-        return $user->inGroup('admin') || $user->inGroup('com');
-    }
-
     /**
      * Méthode qui liste tous les mssion dans la vue
      * @return String 
      */
-    public function liste()
+    public function liste(): string
     {
-        if (!$this->isAuthorized()) {
-            return redirect('accueil');
-        }
-
         $listeMission = $this->missionModel->findAll();
-        $clientMissionProfils = $this->missionModel->getClientMissionProfil();
+        $clientMissionProfil = $this->missionModel->getClientMissionProfil();
 
         //affecter un variable qui va contenir le salarié affecter
 
@@ -49,7 +38,7 @@ class Mission extends BaseController
         //Retourn la vue 'mission_liste'
         return view('mission_liste', [
             'listeMission' => $listeMission,
-            'clientMissionProfils' => $clientMissionProfils
+            'clientMissionProfils' => $clientMissionProfil
         ]);
     }
 
@@ -57,12 +46,8 @@ class Mission extends BaseController
      * Méthode qui renvoie vers le formulaire d'ajout mission
      * @return String 
      */
-    public function ajout()
+    public function ajout(): string
     {
-        if (!$this->isAuthorized()) {
-            return redirect('accueil');
-        }
-
         $listeClient = $this->clientModel->findAll();
         $listeProfil = $this->profilModel->findAll();
 
@@ -77,10 +62,6 @@ class Mission extends BaseController
      */
     public function create()
     {
-        if (!$this->isAuthorized()) {
-            return redirect('accueil');
-        }
-
         $data = $this->request->getPost();
         $this->missionModel->save($data);
 
@@ -104,22 +85,17 @@ class Mission extends BaseController
     /**
      * Méthode qui réaffiche le mission à modifier
      */
-    public function modif($missionId)
+    public function modif($missionId): string
     {
-        if (!$this->isAuthorized()) {
-            return redirect('accueil');
-        }
-
         //Récupère le mission par rapport à son id
         $mission = $this->missionModel->find($missionId);
         $listeClient = $this->clientModel->findAll();
-
-        $missionJoins = $this->missionModel->getJoinMissionInfo($missionId);
+        $listeProfil = $this->profilModel->findAll();
 
         return view('mission_modifier', [
             'mission' => $mission,
-            'missionJoins' => $missionJoins,
-            'listeClient' => $listeClient
+            'listeClient' => $listeClient,
+            'listeProfil' => $listeProfil
         ]);
     }
 
@@ -128,10 +104,6 @@ class Mission extends BaseController
      */
     public function update()
     {
-        if (!$this->isAuthorized()) {
-            return redirect('accueil');
-        }
-
         $data = $this->request->getPost();
         $this->missionModel->save($data);
 
@@ -143,10 +115,6 @@ class Mission extends BaseController
      */
     public function delete($missionId)
     {
-        if (!$this->isAuthorized()) {
-            return redirect('accueil');
-        }
-
         //Instruction pour supprimer le mission
         $this->missionModel->delete($missionId);
 

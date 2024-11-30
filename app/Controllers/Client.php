@@ -48,6 +48,27 @@ class Client extends BaseController
         }
 
         $data = $this->request->getPost();
+<<<<<<< HEAD
+        $imageName = $this->request->getPost('image_name');
+        $file = $this->request->getFile('image');
+
+        if ($file->isValid() && !$file->hasMoved()) {
+            if ($imageName) {
+                $newName = $imageName . '.' . $file->getExtension();
+            } else {
+                $newName = $file->getRandomName();
+            }
+
+
+            $file->move(WRITEPATH . '../public/upload/', $newName);
+
+            $imagePath = 'upload/' . $newName;
+            $data['IMG'] = $imagePath; // Stocker le chemin relatif à l'image dans la base de données
+        } else {
+            $data['IMG'] = null;
+        }
+=======
+>>>>>>> 64f6b69f54d5de5152a53b83f07231fec733284c
 
         $this->clientModel->save($data);
 
@@ -74,6 +95,23 @@ class Client extends BaseController
         }
 
         $data = $this->request->getPost();
+<<<<<<< HEAD
+        $imageName = $this->request->getPost('image_name');
+        $file = $this->request->getFile('image');
+
+        if ($file->isValid() && !$file->hasMoved()) {
+            if ($imageName) {
+                $newName = $imageName . '.' . $file->getExtension();
+            } else {
+                $newName = $file->getRandomName();
+            }
+
+            $file->move(WRITEPATH . '../public/upload/', $newName);
+            $imagePath = 'upload/' . $newName;
+            $data['IMG'] = $imagePath;
+        }
+=======
+>>>>>>> 64f6b69f54d5de5152a53b83f07231fec733284c
 
         $this->clientModel->save($data);
 

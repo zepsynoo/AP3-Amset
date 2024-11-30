@@ -13,8 +13,8 @@
     <a class="bouton" href="<?= url_to('mission_ajout') ?>">Ajout mission</a>
     <?php
 
-    // die(var_dump($clientMissionProfils));
-    // die(var_dump($listeMission)); 
+    //die(var_dump($clientMissionProfils));
+    //die(var_dump($listeMission)); 
 
     $table = new \CodeIgniter\View\Table();
     $table->setHeading('Client concerné', 'Intitulé', 'Description', 'Profil(s)', 'Début', 'Fin', 'Affecter les salarié', 'Modifier', 'Supprimer');
@@ -26,18 +26,16 @@
         foreach ($clientMissionProfils as $clientMissionProfil) {
             if ($mission['ID_MISSION'] == $clientMissionProfil['ID_MISSION']) {
                 
-                if (!ISSET($missionLigne[$i]['profils'])) {
+                if (!isset($missionLigne[$i]['profils'])) {
                     $missionLigne[$i] = $clientMissionProfil;
                     $missionLigne[$i]['profils'] = "";
-                    $raisonSocial = $missionLigne[$i]['PRENOM'] . ' ' . $missionLigne[$i]['NOM'];
                 }
 
                 $missionLigne[$i]['profils'] .= $clientMissionProfil['LIBELLE'] . ' x' . $clientMissionProfil['NOMBRE_PROFIL'] . '<br/>';
             }
         }
-        // die(var_dump($missionLigne[$i])); 
         $table->addRow(
-            $raisonSocial,
+            $missionLigne[$i]['NOM'],
             $missionLigne[$i]['INTITULE_MISSION'],
             $missionLigne[$i]['DESCRIPTION_MISSION'],
             $missionLigne[$i]['profils'],
@@ -49,7 +47,7 @@
         );
         $i++;
     }
-    
+
     echo $table->generate();
 
     ?>

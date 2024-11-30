@@ -11,10 +11,11 @@
 
     <?php
     $tableau = new \CodeIgniter\View\Table();
-    $tableau->setHeading('nom', 'prenom', 'email', 'telephone', 'adresse', 'image', 'modifier', 'supprimer');
+    $tableau->setHeading('nom', 'prenom', 'email', 'telephone', 'adresse', 'ville', 'code postal', 'raison social', 'image', 'modifier', 'supprimer');
 
     foreach ($clients as $client) {
-var_dump($client);
+        $imageSrc = $client['IMG'] ? base_url($client['IMG']) : 'default-image-path.jpg';
+        var_dump($client);
         $tableau->addRow(
             $client['NOM'],
             $client['PRENOM'],
@@ -24,8 +25,7 @@ var_dump($client);
             $client['VILLE'],
             $client['CODE_POSTAL'],
             $client['RAISON_SOCIAL'],
-            $client['IMG'],
-
+            '<img src="' . $imageSrc . '" alt="Image du client" width="100" height="100">',
             '<a href="' . url_to('client_modif', $client['ID_CLIENT']) . ' "><button class="button">Modifier</button></a>',
             '<a href="' . url_to('client_delete', $client['ID_CLIENT']) . '" onclick="return confirm(\'Êtes-vous sûr de vouloir supprimer ce client ?\')"><button class="button">Supprimer</button></a>'
         );
