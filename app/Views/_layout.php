@@ -1,3 +1,11 @@
+<?php
+$user = auth()->user();
+$admin = $user && $user->inGroup('admin');
+$com = $user && $user->inGroup('com');
+$rhu = $user && $user->inGroup('rhu');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,11 +41,12 @@
                 <li class="menu-toggle">
                     <button id="menuToggle">&#9776;</button>
                 </li>
-                <li class="menu-item hidden"><a href="<?= url_to('salarie_liste') ?>">Salariés</a></li>
-                <li class="menu-item hidden"><a href="<?= url_to('mission_liste') ?>">Mission</a></li>
-                <li class="menu-item hidden"><a href="<?= url_to('client_liste') ?>">Clients</a></li>
-                <li class="menu-item hidden"><a href="<?= url_to('utilisateur_liste') ?>">Utilisateur(V2)</a></li>
-                <li class="menu-item hidden"><a href="<?= url_to('profils_liste') ?>">Profils(V2)</a></li>
+                <?= $admin || $rhu ? '<li class="menu-item hidden"><a href="' . url_to('salarie_liste') . '">Salariés</a></li>' : '' ?>
+                <?= $admin || $com ? '<li class="menu-item hidden"><a href="' . url_to('mission_liste') . '">Mission</a></li>' : '' ?>
+                <?= $admin || $com ? '<li class="menu-item hidden"><a href="' . url_to('client_liste') . '">Clients</a></li>' : '' ?>
+                <?= $admin ? '<li class="menu-item hidden"><a href="' . url_to('utilisateur_liste') . '">Utilisateur(V2)</a></li>' : '' ?>
+                <?= $admin || $rhu ? '<li class="menu-item hidden"><a href="' . url_to('profils_liste') . '">Profils(V2)</a></li>' : '' ?>
+                <li class="menu-item hidden"><a href="<?= url_to('logout') ?>">Logout</a></li>
             </ul>
         </div>
 

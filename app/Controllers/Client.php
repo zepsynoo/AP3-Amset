@@ -2,31 +2,53 @@
 
 namespace App\Controllers;
 
+
+
 class Client extends BaseController
 
 {
     private $clientModel;
+
 
     public function __construct()
     {
         $this->clientModel = model('Client');
     }
 
-    public function liste(): string
+    private function isAuthorized(): bool
     {
+        $user = auth()->user();
+        return $user->inGroup('admin') || $user->inGroup('com');
+    }
+
+    public function liste()
+    {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $clients = $this->clientModel->findAll();
         return view('clients_liste', ['clients' => $clients]);
     }
 
-    public function ajout(): string
+    public function ajout()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         return view('clients_ajout');
     }
 
 
     public function create()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $data = $this->request->getPost();
+<<<<<<< HEAD
         $imageName = $this->request->getPost('image_name');
         $file = $this->request->getFile('image');
 
@@ -45,6 +67,8 @@ class Client extends BaseController
         } else {
             $data['IMG'] = null;
         }
+=======
+>>>>>>> 64f6b69f54d5de5152a53b83f07231fec733284c
 
         $this->clientModel->save($data);
 
@@ -52,8 +76,12 @@ class Client extends BaseController
     }
 
 
-    public function modif($idClient): string
+    public function modif($idClient)
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $client = $this->clientModel->find($idClient);
 
         return view('clients_modifier', ['client' => $client]);
@@ -62,7 +90,12 @@ class Client extends BaseController
 
     public function update()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $data = $this->request->getPost();
+<<<<<<< HEAD
         $imageName = $this->request->getPost('image_name');
         $file = $this->request->getFile('image');
 
@@ -77,6 +110,8 @@ class Client extends BaseController
             $imagePath = 'upload/' . $newName;
             $data['IMG'] = $imagePath;
         }
+=======
+>>>>>>> 64f6b69f54d5de5152a53b83f07231fec733284c
 
         $this->clientModel->save($data);
 
@@ -86,6 +121,10 @@ class Client extends BaseController
 
     public function delete($idClient)
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $this->clientModel->delete($idClient);
         return redirect('client_liste');
     }
