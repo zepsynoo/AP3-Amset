@@ -42,11 +42,10 @@ $rhu = $user && $user->inGroup('rhu');
                     <button id="menuToggle">&#9776;</button>
                 </li>
                 <?= $admin || $rhu ? '<li class="menu-item hidden"><a href="' . url_to('salarie_liste') . '">Salariés</a></li>' : '' ?>
-                <?= $admin || $com ? '<li class="menu-item hidden"><a href="' . url_to('mission_liste') . '">Mission</a></li>' : '' ?>
+                <?= $admin || $com ? '<li class="menu-item hidden"><a href="' . url_to('mission_liste') . '">Missions</a></li>' : '' ?>
                 <?= $admin || $com ? '<li class="menu-item hidden"><a href="' . url_to('client_liste') . '">Clients</a></li>' : '' ?>
-                <?= $admin ? '<li class="menu-item hidden"><a href="' . url_to('utilisateur_liste') . '">Utilisateur(V2)</a></li>' : '' ?>
-                <?= $admin || $rhu ? '<li class="menu-item hidden"><a href="' . url_to('profils_liste') . '">Profils(V2)</a></li>' : '' ?>
-                <li class="menu-item hidden"><a href="<?= url_to('logout') ?>">Logout</a></li>
+                <?= $admin ? '<li class="menu-item hidden"><a href="' . url_to('profils_liste') . '">Profils</a></li>' : '' ?>
+                <li class="menu-item hidden"><a href="<?= url_to('logout') ?>">Déconnexion</a></li>
             </ul>
         </div>
 

@@ -17,7 +17,7 @@ class Profil extends BaseController
     private function isAuthorized(): bool
     {
         $user = auth()->user();
-        return $user->inGroup('admin') || $user->inGroup('rhu');
+        return $user->inGroup('admin');
     }
 
     //------------------------------------------

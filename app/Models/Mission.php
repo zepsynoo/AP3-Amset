@@ -58,6 +58,7 @@ class Mission extends Model
         ]);
     }
 
+    //Methode pour afficher
     public function getClientMissionProfil()
     {
         return (
@@ -69,4 +70,6 @@ class Mission extends Model
             ->findAll()
         );
     }
+
+    
 }

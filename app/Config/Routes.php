@@ -21,24 +21,6 @@ $routes->get('/', 'Amset::main', ['as' => 'accueil']);
 
 // --------------------------------------------------------
 
-// Utilisateur
-
-// liste : http://amset.com/accueil/liste-utilisateur
-$routes->get('liste-utilisateur', 'Utilisateur::liste', ['as' => 'utilisateur_liste']);
-
-// ajout : http://amset.com/accueil/liste-utilisateur/ajout-utilisateur
-$routes->get('ajout-utilisateur', 'Utilisateur::ajout', ['as' => 'utilisateur_ajout']);
-$routes->post('ajout-utilisateur', 'Utilisateur::create', ['as' => 'utilisateur_create']);
-
-// modif : http://amset.com/accueil/liste-utilisateur/modif-utilisateur
-$routes->get('modif-utilisateur-(:num)', 'Utilisateur::modif/$1', ['as' => 'utilisateur_modif']);
-$routes->post('modif-utilisateur', 'Utilisateur::update', ['as' => 'utilisateur_update']);
-
-// delete : http://amset.com/accueil/liste-utilisateur/suppr-utilisateur
-$routes->post('suppr-utilisateur', 'Utilisateur::delete', ['as' => 'utilisateur_delete']);
-
-// --------------------------------------------------------
-
 // Profils
 
 // liste : http://amset.com/accueil/liste-profils

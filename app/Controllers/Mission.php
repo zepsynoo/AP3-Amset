@@ -112,11 +112,18 @@ class Mission extends BaseController
 
         //Récupère le mission par rapport à son id
         $mission = $this->missionModel->find($missionId);
+        //Table client
         $listeClient = $this->clientModel->findAll();
+        //Table profils
         $listeProfil = $this->profilModel->findAll();
+        //Jointure sur client, mission, profil
+        $missionJoins = $this->missionModel->getJoinMissionInfo($missionId);
+
+
 
         return view('mission_modifier', [
             'mission' => $mission,
+            'missionJoins' => $missionJoins,
             'listeClient' => $listeClient,
             'listeProfil' => $listeProfil
         ]);
@@ -131,10 +138,26 @@ class Mission extends BaseController
             return redirect('accueil');
         }
 
+    
         $data = $this->request->getPost();
-        $this->missionModel->save($data);
+        die(var_dump($data));
+        if(isset($data)){
 
-        return redirect('mission_liste');
+            $this->missionModel->save($data);
+        }
+
+    
+        $missionId = $this->request->getPost('missionId');
+        $profilId = $this->request->getPost('profil');
+        $nbre = $this->request->getPost('nombreProfil');
+        
+        if($missionId != null && $profilId != null && $nbre != null){
+
+            $this->missionModel->addProfil($missionId, $profilId, $nbre);
+        }
+
+
+        return redirect()->to('modif-mission-' . $missionId);
     }
 
     /**

@@ -35,7 +35,7 @@
             }
         }
         $table->addRow(
-            $missionLigne[$i]['NOM'],
+            $missionLigne[$i]['PRENOM'] . ' ' . $missionLigne[$i]['NOM'],
             $missionLigne[$i]['INTITULE_MISSION'],
             $missionLigne[$i]['DESCRIPTION_MISSION'],
             $missionLigne[$i]['profils'],
