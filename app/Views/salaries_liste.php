@@ -1,5 +1,4 @@
 <?= $this->extend('_layout') ?>
-
 <?= $this->section('contenu') ?>
 
 <div>
@@ -11,13 +10,11 @@
 
 <h2>Liste des Salariés</h2>
 <div>
-
     <section>
         <form method=get action=<?= url_to('salarie_ajout') ?>><button>Ajouter un Salariés</button></form>
         <div class="table-container">
             <?php
             use \CodeIgniter\View\Table;
-
             $table = new \CodeIgniter\View\Table();
             $table->setHeading('Prenom', 'Nom', 'Civilité', 'Email', 'Téléphone', 'Adresse', 'Code-Postal', 'Ville', 'Profils', 'Modifier', 'Supprimer');
 
@@ -39,8 +36,6 @@
                     </form>'
                 );
             }
-
-            // Affichage de la table
             echo $table->generate();
             ?>
         </div>

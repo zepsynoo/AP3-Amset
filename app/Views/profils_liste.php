@@ -4,7 +4,7 @@
 
 <div>
 
-    <h1>Bienvenue sur la liste de Profil</h1>
+    <h1>Bienvenue sur la liste des Profils</h1>
 
 </div>
 </header>
