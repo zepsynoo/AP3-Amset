@@ -27,7 +27,6 @@
             <li class="menu-item hidden"><a href="<?= url_to('salarie_liste') ?>">Salariés</a></li>
             <li class="menu-item hidden"><a href="<?= url_to('mission_liste') ?>">Mission</a></li>
             <li class="menu-item hidden"><a href="<?= url_to('client_liste') ?>">Clients</a></li>
-            <li class="menu-item hidden"><a href="<?= url_to('utilisateur_liste') ?>">Utilisateur(V2)</a></li>
             <li class="menu-item hidden"><a href="<?= url_to('profils_liste') ?>">Profils(V2)</a></li>
         </ul>
     </div>

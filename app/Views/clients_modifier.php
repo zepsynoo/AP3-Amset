@@ -31,11 +31,11 @@
             <label for="raison_social">raison_social :</label>
             <input type="text" id="RAISON_SOCIAL" name="RAISON_SOCIAL" value= "<?=$client['RAISON_SOCIAL']?>"><br><br>
 
-            <label for="image">Choisir une image :</label>
+            <!-- <label for="image">Choisir une image :</label>
             <input type="file" name="image" id="image" required>
 
             <label for="image_name">Nom personnalisé de l'image :</label>
-            <input type="text" id="image_name" name="image_name" placeholder="Entrez un nom pour l'image">
+            <input type="text" id="image_name" name="image_name" placeholder="Entrez un nom pour l'image"> -->
 
             <input type="submit" value="Modifier">
             <input type="button" value="retour" onclick="window.location.href='index.php'">
