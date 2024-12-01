@@ -22,12 +22,23 @@ class Mission extends BaseController
         $this->profilModel = model('Profil');
     }
 
+    private function isAuthorized(): bool
+    {
+        $user = auth()->user();
+        return $user->inGroup('admin') || $user->inGroup('com');
+    }
+
+
     /**
      * Méthode qui liste tous les mssion dans la vue
      * @return String 
      */
-    public function liste(): string
+    public function liste()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $listeMission = $this->missionModel->findAll();
         $clientMissionProfil = $this->missionModel->getClientMissionProfil();
 
@@ -46,8 +57,12 @@ class Mission extends BaseController
      * Méthode qui renvoie vers le formulaire d'ajout mission
      * @return String 
      */
-    public function ajout(): string
+    public function ajout()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $listeClient = $this->clientModel->findAll();
         $listeProfil = $this->profilModel->findAll();
 
@@ -62,6 +77,10 @@ class Mission extends BaseController
      */
     public function create()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $data = $this->request->getPost();
         $this->missionModel->save($data);
 
@@ -85,8 +104,12 @@ class Mission extends BaseController
     /**
      * Méthode qui réaffiche le mission à modifier
      */
-    public function modif($missionId): string
+    public function modif($missionId)
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         //Récupère le mission par rapport à son id
         $mission = $this->missionModel->find($missionId);
         $listeClient = $this->clientModel->findAll();
@@ -104,6 +127,10 @@ class Mission extends BaseController
      */
     public function update()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $data = $this->request->getPost();
         $this->missionModel->save($data);
 
@@ -115,6 +142,10 @@ class Mission extends BaseController
      */
     public function delete($missionId)
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+        
         //Instruction pour supprimer le mission
         $this->missionModel->delete($missionId);
 
