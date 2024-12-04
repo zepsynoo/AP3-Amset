@@ -11,7 +11,13 @@ class Client extends BaseController
     public function __construct()
     {
         $this->clientModel = model('Client');
-        $this->missionModel = model('mission');
+        $this->missionModel = model('Mission');
+    }
+
+    private function isAuthorized(): bool
+    {
+        $user = auth()->user();
+        return $user->inGroup('admin') || $user->inGroup('com');
     }
 
     //-------------------------------------
@@ -19,6 +25,10 @@ class Client extends BaseController
 
     public function liste(): string
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $clients = $this->clientModel->findAll();
         $missions = $this->missionModel->findAll();
         return view(
@@ -35,12 +45,20 @@ class Client extends BaseController
 
     public function ajout(): string
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         return view('clients_ajout');
     }
 
 
     public function create()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $data = $this->request->getPost();
     
         $this->clientModel->save($data);
@@ -53,6 +71,10 @@ class Client extends BaseController
 
     public function modif($idClient): string
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $client = $this->clientModel->find($idClient);
 
         return view('clients_modifier',['client'=>$client]);
@@ -61,6 +83,10 @@ class Client extends BaseController
 
     public function update()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
         $data = $this->request->getPost();
     
         $this->clientModel->save($data);
@@ -72,6 +98,10 @@ class Client extends BaseController
 
     public function delete()
     {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+        
         $clientData = $this->request->getPost(['ID_CLIENT']);
 
         $missionData = $this->clientModel->getIdMission($clientData);
