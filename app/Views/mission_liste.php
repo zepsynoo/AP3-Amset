@@ -13,43 +13,57 @@
     <a class="bouton" href="<?= url_to('mission_ajout') ?>">Ajout mission</a>
     <?php
 
-    //die(var_dump($clientMissionProfils));
-    //die(var_dump($listeMission)); 
+    // die(var_dump($clientMissionProfils));
+    // die(var_dump($listeMission)); 
 
     $table = new \CodeIgniter\View\Table();
     $table->setHeading('Client concerné', 'Intitulé', 'Description', 'Profil(s)', 'Début', 'Fin', 'Affecter les salarié', 'Modifier', 'Supprimer');
-    $missionLigne = [];
-    $i = 0;
+
     foreach ($listeMission as $mission) {
-        $missionLigne[$i] = [];
+        $missionLigne = [];
 
+        // $i = 0;
+        // $profilMission[$i] = [];
+        
+        // $profilMission = [];
+
+        $missionLigne['profils'] = "";
         foreach ($clientMissionProfils as $clientMissionProfil) {
+            // die(var_dump(($clientMissionProfils)));
             if ($mission['ID_MISSION'] == $clientMissionProfil['ID_MISSION']) {
-                
-                if (!isset($missionLigne[$i]['profils'])) {
-                    $missionLigne[$i] = $clientMissionProfil;
-                    $missionLigne[$i]['profils'] = "";
-                }
-
-                $missionLigne[$i]['profils'] .= $clientMissionProfil['LIBELLE'] . ' x' . $clientMissionProfil['NOMBRE_PROFIL'] . '<br/>';
+                $missionLigne['profils'] .= $clientMissionProfil['LIBELLE'] . ' x' . $clientMissionProfil['NOMBRE_PROFIL'] . '<br/>';
+                // $profilMission[$i] = $clientMissionProfil['ID_PROFIL'];
             }
+            // $i++;
         }
-        $table->addRow(
-            $missionLigne[$i]['PRENOM'] . ' ' . $missionLigne[$i]['NOM'],
-            $missionLigne[$i]['INTITULE_MISSION'],
-            $missionLigne[$i]['DESCRIPTION_MISSION'],
-            $missionLigne[$i]['profils'],
-            $missionLigne[$i]['DATE_DEBUT'],
-            $missionLigne[$i]['DATE_FIN'],
-            '<a class="bouton" href="' . url_to('mission_affect', $mission['ID_CLIENT']) . '"> Affecter </a>',
-            '<a class="bouton" href="' . url_to('mission_modif', $mission['ID_MISSION']) . '"> Modifier </a>',
-            '<a class="bouton" href="' . url_to('mission_delete') . '"> Supprimer </a>'
-        );
-        $i++;
+        // die(var_dump(($profilMission)));
+        // die(var_dump(($clientMissionProfil)));
+        
+        foreach ($missionClients as $missionClient) {
+            if ($mission['ID_MISSION'] == $missionClient['ID_MISSION']) {
+                $table->addRow(
+                    $missionClient['PRENOM'] . ' ' . $missionClient['NOM'],
+                    $mission['INTITULE_MISSION'],
+                    $mission['DESCRIPTION_MISSION'],
+                    $missionLigne['profils'],
+                    $mission['DATE_DEBUT'],
+                    $mission['DATE_FIN'],
+                    '<a class="bouton" href="' . url_to('mission_affect', $missionClient['ID_MISSION']) . '"> Affecter </a>',
+                    '<a class="bouton" href="' . url_to('mission_modif', $mission['ID_MISSION']) . '"> Modifier </a>',
+                    // '<a class="bouton" href="' . url_to('mission_delete', $mission['ID_MISSION']) . '" onclick="return confirm(\'Êtes-vous sûr de vouloir supprimer ?\')"> Supprimer </a>'
+                    '<form method="post" action="' . url_to('mission_delete', $mission['ID_MISSION']) . ' ">
+                    <input type="hidden" name="ID_MISSION" value="' . $mission['ID_MISSION'] . '">
+                    <input type="submit" value="Supprimer" >
+                    </form>'
+                );
+                // <input type="hidden" name="profils[]" value="' . $profilMission . '">
+            }
+            // find a way to display the profil list in vardump
+        }
     }
-
+    
     echo $table->generate();
-
+    
     ?>
 
 </section>

@@ -70,6 +70,11 @@ $routes->post('ajout-mission', 'Mission::create', ['as' => 'mission_create']);
 // modif : http://amset.com/accueil/liste-mission/modif-mission
 $routes->get('modif-mission-(:num)', 'Mission::modif/$1', ['as' => 'mission_modif']);
 $routes->post('modif-mission', 'Mission::update', ['as' => 'mission_update']);
+/////Ajout nouveau profil dans mission
+$routes->post('modif-mission-ajout-profil', 'Mission::updateAddProfil', ['as' => 'mission_update_ajout_profil']);
+/////Suppression  profil dans mission
+$routes->post('modif-mission-supp-profil', 'Mission::updateDeleteProfil', ['as' => 'mission_update_supp_profil']);
+
 
 // delet : http://amset.com/accueil/liste-mission/suppr-mission
 $routes->post('suppr-mission', 'Mission::delete', ['as' => 'mission_delete']);
