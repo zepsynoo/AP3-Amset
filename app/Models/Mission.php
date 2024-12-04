@@ -63,11 +63,11 @@ class Mission extends Model
     {
         return (
             $this->select('*')
-            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
-            ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
-            ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
-            ->orderBy('profil_mission.ID_MISSION')
-            ->findAll()
+                ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
+                ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
+                ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+                ->orderBy('profil_mission.ID_MISSION')
+                ->findAll()
         );
     }
 
@@ -95,5 +95,5 @@ class Mission extends Model
         $builder->Where('salarie_mission.ID_MISSION', $idMission);
         $builder->delete();
     }
-    
+
 }

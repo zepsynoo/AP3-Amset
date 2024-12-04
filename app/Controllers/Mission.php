@@ -33,7 +33,6 @@ class Mission extends BaseController
 
     /**
      * Méthode qui liste tous les mssion dans la vue
-     * @return String 
      */
     public function liste()
     {
@@ -57,7 +56,6 @@ class Mission extends BaseController
 
     /**
      * Méthode qui renvoie vers le formulaire d'ajout mission
-     * @return String 
      */
     public function ajout()
     {
@@ -140,7 +138,7 @@ class Mission extends BaseController
             return redirect('accueil');
         }
 
-    
+
         $data = $this->request->getPost();
         die(var_dump($data));
         if (isset($data)) {
@@ -148,11 +146,11 @@ class Mission extends BaseController
             $this->missionModel->save($data);
         }
 
-    
+
         $missionId = $this->request->getPost('missionId');
         $profilId = $this->request->getPost('profil');
         $nbre = $this->request->getPost('nombreProfil');
-        
+
         if ($missionId != null && $profilId != null && $nbre != null) {
 
             $this->missionModel->addProfil($missionId, $profilId, $nbre);
@@ -170,7 +168,7 @@ class Mission extends BaseController
         if (!$this->isAuthorized()) {
             return redirect('accueil');
         }
-        
+
         //Instruction pour supprimer le mission
         $this->missionModel->delete($missionId);
 

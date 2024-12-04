@@ -11,7 +11,7 @@ class Client extends BaseController
     public function __construct()
     {
         $this->clientModel = model('Client');
-        $this->missionModel = model('mission');
+        $this->missionModel = model('Mission');
     }
 
     //-------------------------------------
