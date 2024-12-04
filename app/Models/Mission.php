@@ -46,6 +46,7 @@ class Mission extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    //Methode pour afficher
     public function addProfil($idMission, $idProfil, $nombreProfil)
     {
         $db      = \Config\Database::connect();
@@ -71,6 +72,7 @@ class Mission extends Model
         );
     }
 
+<<<<<<< HEAD
 
     /// Fonction insérant un salarie selon l'idSalarie et l'idMission
     /// ! adapter selon la base de données !
@@ -93,6 +95,61 @@ class Mission extends Model
         $db = \Config\Database::Connect();
         $builder = $db->table('salarie_mission');
         $builder->Where('salarie_mission.ID_MISSION', $idMission);
+=======
+    //Join sur mission et client
+    public function getMissionClient()
+    {
+        return (
+            $this->select('*')
+            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
+            ->orderBy('mission.ID_MISSION')
+            ->findAll()
+
+        );
+    }
+
+    //Join sur mission et profil
+    // public function getMissionProfil(){
+    //     return (
+    //         $this->select('*')
+    //         ->from('profil_mission')
+    //         ->join('mission', 'mission.ID_MISSION = profil_mission.ID_MISSION')
+    //         ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+    //         ->orderBy('mission.ID_MISSION')
+    //         ->findAll()
+
+    //     );
+    // }
+
+    //Methode pour afficher avec id de mission
+    public function getJoinMissionInfo($missionId)
+    {
+        return (
+            $this->select('*')
+            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
+            ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
+            ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+            ->where('mission.ID_MISSION', $missionId)
+            ->orderBy('profil_mission.ID_MISSION')
+            ->findAll()
+        );
+    }
+
+    public function deleteProfil($missionId, $profilId)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('profil_mission');
+        $builder->where('ID_MISSION', $missionId);
+        $builder->where('ID_PROFIL', $profilId);
+        $builder->delete();
+    }
+
+    public function deleteProfilMission($missionId) {
+        $db = \Config\Database::connect();
+        $builder = $db->table('profil_mission');
+        $builder->where('ID_MISSION', $missionId);
+        // $builder->where('ID_PROFIL', $profilId);
+>>>>>>> 6e736d3cb75c086c775256101bf9ef4528076441
         $builder->delete();
     }
 

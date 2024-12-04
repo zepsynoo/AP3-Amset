@@ -56,5 +56,16 @@ class Profil extends Model
         // Exécution de la requête avec le paramètre lié
         return $db->query($sql, [$idSalarie])->getResultArray();
     }
+
+    public function getProfilNotInMission($missionId){
+        $db = \Config\Database::connect();
+        $sql = 'SELECT profil.ID_PROFIL, profil.LIBELLE
+                FROM `profil`
+                LEFT JOIN `profil_mission`
+                ON `profil_mission`.`ID_PROFIL` = `profil`.`ID_PROFIL`
+                AND `profil_mission`.`ID_MISSION` = ?
+                WHERE `profil_mission`.`ID_MISSION` IS NULL;';
+        return $db->query($sql, [$missionId])->getResultArray();
+    }
     
 }

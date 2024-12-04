@@ -2,14 +2,16 @@
 <?= $this->section('contenu') ?>
 
 <form method="post" action="<?= url_to('mission_update') ?>">
-    <input type="hidden" name="missionId" value="<?= $mission['ID_MISSION'] ?>">
+
+    <input type="hidden" name="ID_MISSION" value="<?= $mission['ID_MISSION'] ?>">
     <?php
+    // die(var_dump($mission['ID_MISSION']));
     foreach ($listeProfil as $profil) {
         foreach ($missionJoins as $missionJoin) {
 
             if ($profil['ID_PROFIL'] == $missionJoin['ID_PROFIL']) {
 
-                echo '<input type="hidden" name="profilId" value="' . $profil['ID_PROFIL'] . '">';
+                echo '<input type="hidden" name="ID_PROFIL" value="' . $profil['ID_PROFIL'] . '">';
             }
         }
     }
@@ -19,7 +21,7 @@
     <?php
     // die(var_dump($mission));
     // var_dump($mission);
-    var_dump($missionJoins);
+    // var_dump($missionJoins);
     // die(var_dump($listeClient));
     // var_dump($listeClient);
 
@@ -62,6 +64,7 @@
         <label>Profil</label>
         <?php
         foreach ($missionJoins as $missionJoin) {
+
             // echo '<input type="checkbox" name="profils[]" value=' . $missionJoin['ID_PROFIL'] . '>' . $missionJoin['LIBELLE'];
             // echo '<input type="number" name=' . $missionJoin['ID_PROFIL'] . ' value="' . $missionJoin['NOMBRE_PROFIL'] . '"></br>';
 
@@ -74,23 +77,62 @@
     <input type="submit" value="Valider">
 </form>
 
-<form method="post" action="<?= url_to('mission_update') ?>">
+<form method="post" action="<?= url_to('mission_update_ajout_profil') ?>">
 
-    <input type="hidden" name="missionId" value="<?= $mission['ID_MISSION'] ?>">
+    <input type="hidden" name="ID_MISSION" value="<?= $mission['ID_MISSION'] ?>">
+    <?php
 
-    <label for="ID_PROFIL">Ajoutez le(s) profil(s)</label>
-    <select name="profil">
+    foreach ($listeClient as $client) {
+
+        echo '<input type="hidden" name="ID_CLIENT" value="' . $client['ID_CLIENT'] . '">';
+    }
+    ?>
+
+    <label for="ID_PROFIL">Ajoutez le(s) profil(s) :</label>
+    <select name="ID_PROFIL">
+        <?php
+        // foreach ($missionJoins as $missionJoin) {
+            foreach ($profilNotInMissions as $profilNotInMission) {
+
+                // if ($profil['ID_PROFIL'] != $missionJoin['ID_PROFIL']) {
+
+                    echo '<option value="' . $profilNotInMission['ID_PROFIL'] . '">' . $profilNotInMission['LIBELLE'] . '</option>';
+                // }
+            }
+        // }
+        ?>
+    </select>
+
+    <input type="number" name="NOMBRE_PROFIL" value="1">
+
+    <input type="submit" value="Ajout">
+
+</form>
+
+<form method="post" action="<?= url_to('mission_update_supp_profil') ?>">
+    <input type="hidden" name="ID_MISSION" value="<?= $mission['ID_MISSION'] ?>">
+
+    <?php
+    foreach ($listeProfil as $profil) {
+        echo '<input type="hidden" name="ID_PROFIL" value="' . $profil['ID_PROFIL'] . '">';
+    }
+    ?>
+
+    <label for="ID_PROFIL">Supprimez le(s) profil(s) :</label>
+    <select name="ID_PROFIL">
         <?php
         foreach ($listeProfil as $profil) {
+            foreach ($missionJoins as $missionJoin) {
 
-            echo '<option value="' . $profil['ID_PROFIL'] . '">' . $profil['LIBELLE'] . '</option>';
+                if ($profil['ID_PROFIL'] == $missionJoin['ID_PROFIL']) {
+                    echo '<option value="' . $missionJoin['ID_PROFIL'] . '">' . $missionJoin['LIBELLE'] . '</option>';
+                }
+            }
         }
         ?>
     </select>
 
-    <input type="number" name="nombreProfil" value="1">
-
-    <input type="submit" value="Ajoutez">
+    <input type="submit" value="Supprime">
 
 </form>
 

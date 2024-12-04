@@ -41,7 +41,12 @@ class Mission extends BaseController
         }
 
         $listeMission = $this->missionModel->findAll();
-        $clientMissionProfil = $this->missionModel->getClientMissionProfil();
+        $clientMissionProfils = $this->missionModel->getClientMissionProfil();
+        // die(var_dump($clientMissionProfil)); 
+        $missionClients = $this->missionModel->getMissionClient();
+        // die(var_dump($missionClients)); 
+        // $missionProfils = $this->missionModel->getMissionProfil();
+        // die(var_dump($missionProfils)); 
 
         //affecter un variable qui va contenir le salarié affecter
 
@@ -50,7 +55,8 @@ class Mission extends BaseController
         //Retourn la vue 'mission_liste'
         return view('mission_liste', [
             'listeMission' => $listeMission,
-            'clientMissionProfils' => $clientMissionProfil
+            'missionClients' => $missionClients,
+            'clientMissionProfils' => $clientMissionProfils
         ]);
     }
 
@@ -109,7 +115,7 @@ class Mission extends BaseController
         if (!$this->isAuthorized()) {
             return redirect('accueil');
         }
-
+        
         //Récupère le mission par rapport à son id
         $mission = $this->missionModel->find($missionId);
         //Table client
@@ -118,6 +124,10 @@ class Mission extends BaseController
         $listeProfil = $this->profilModel->findAll();
         //Jointure sur client, mission, profil
         $missionJoins = $this->missionModel->getJoinMissionInfo($missionId);
+        
+        $profilNotInMissions = $this->profilModel->getProfilNotInMission($missionId);
+        
+        // die(var_dump($profilNotInMission));
 
 
 
@@ -125,7 +135,8 @@ class Mission extends BaseController
             'mission' => $mission,
             'missionJoins' => $missionJoins,
             'listeClient' => $listeClient,
-            'listeProfil' => $listeProfil
+            'listeProfil' => $listeProfil,
+            'profilNotInMissions' => $profilNotInMissions
         ]);
     }
 
@@ -139,23 +150,70 @@ class Mission extends BaseController
         }
 
 
+<<<<<<< HEAD
         $data = $this->request->getPost();
         die(var_dump($data));
         if (isset($data)) {
+=======
+        // $data = $this->request->getPost(['ID_CLIENT', 'INTITULE_MISSION', 'DESCRIPTION_MISSION', 'DATE_DEBUT', 'DATE_FIN']);
+        $data = $this->request->getPost();
+        // die(var_dump($data));
+        $this->missionModel->save($data);
+>>>>>>> 6e736d3cb75c086c775256101bf9ef4528076441
 
-            $this->missionModel->save($data);
+        $missionId = $this->request->getPost('ID_MISSION');
+        // die(var_dump($missionId));
+        // $profilId = $this->request->getPost('profil');
+        // $nbre = $this->request->getPost('nombreProfil');
+
+        // if ($missionId != null && $profilId != null && $nbre != null) {
+
+        //     $this->missionModel->addProfil($missionId, $profilId, $nbre);
+        // }
+
+
+        return redirect()->to('modif-mission-' . $missionId);
+    }
+
+    public function updateAddProfil()
+    {
+
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
         }
 
+<<<<<<< HEAD
 
         $missionId = $this->request->getPost('missionId');
         $profilId = $this->request->getPost('profil');
         $nbre = $this->request->getPost('nombreProfil');
 
         if ($missionId != null && $profilId != null && $nbre != null) {
+=======
+        $missionId = $this->request->getPost('ID_MISSION');
+        $profilId = $this->request->getPost('ID_PROFIL');
+        // die(var_dump($profilId));
+        $nbre = $this->request->getPost('NOMBRE_PROFIL');
+>>>>>>> 6e736d3cb75c086c775256101bf9ef4528076441
 
-            $this->missionModel->addProfil($missionId, $profilId, $nbre);
+        $this->missionModel->addProfil($missionId, $profilId, $nbre);
+
+        return redirect()->to('modif-mission-' . $missionId);
+    }
+
+    public function updateDeleteProfil()
+    {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
         }
 
+        $missionId = $this->request->getPost('ID_MISSION');
+        // die(var_dump($missionId));
+
+        $profilId = $this->request->getPost('ID_PROFIL');
+        // die(var_dump($profilId));
+
+        $this->missionModel->deleteProfil($missionId, $profilId);
 
         return redirect()->to('modif-mission-' . $missionId);
     }
@@ -163,13 +221,24 @@ class Mission extends BaseController
     /**
      * Méthode qui supprime le mission
      */
-    public function delete($missionId)
+    public function delete()
     {
         if (!$this->isAuthorized()) {
             return redirect('accueil');
         }
 
+<<<<<<< HEAD
+=======
+        $missionId = $this->request->getPost('ID_MISSION');
+        // die(var_dump($missionId));
+>>>>>>> 6e736d3cb75c086c775256101bf9ef4528076441
         //Instruction pour supprimer le mission
+        // $profils = $this->request->getPost('profils[]');
+        // die(var_dump($profils));
+        // foreach ($profils as $idProfil) {
+        $this->missionModel->deleteProfilMission($missionId);
+        // }
+        // $this->missionModel->deleteMissionProfil($missionId);/
         $this->missionModel->delete($missionId);
 
         return redirect('mission_liste');
