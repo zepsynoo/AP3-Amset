@@ -71,5 +71,29 @@ class Mission extends Model
         );
     }
 
+
+    /// Fonction insérant un salarie selon l'idSalarie et l'idMission
+    /// ! adapter selon la base de données !
+
+    public function addSalarie($idSalarie, $idMission)
+    {
+        $db = \Config\Database::Connect();
+        $builder = $db->table('salarie_mission');
+        $builder->insert([
+            'ID_SALARIE' => $idSalarie,
+            'ID_MISSION' => $idMission
+        ]);
+    }
+
+    /// Fonction supprimant tout les salaries selon l'idMission
+    /// ! adapter selon la base de données !
+
+    public function deleteSalarie($idMission)
+    {
+        $db = \Config\Database::Connect();
+        $builder = $db->table('salarie_mission');
+        $builder->Where('salarie_mission.ID_MISSION', $idMission);
+        $builder->delete();
+    }
     
 }

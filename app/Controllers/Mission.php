@@ -10,6 +10,7 @@ class Mission extends BaseController
     private $missionModel;
     private $clientModel;
     private $profilModel;
+    private $salarieModel;
 
     /**
      * Constructeur de la modèle Mission
@@ -20,6 +21,7 @@ class Mission extends BaseController
         $this->missionModel = model('Mission');
         $this->clientModel = model('Client');
         $this->profilModel = model('Profil');
+        $this->salarieModel = model('Salarie');
     }
 
     private function isAuthorized(): bool
@@ -141,7 +143,7 @@ class Mission extends BaseController
     
         $data = $this->request->getPost();
         die(var_dump($data));
-        if(isset($data)){
+        if (isset($data)) {
 
             $this->missionModel->save($data);
         }
@@ -151,7 +153,7 @@ class Mission extends BaseController
         $profilId = $this->request->getPost('profil');
         $nbre = $this->request->getPost('nombreProfil');
         
-        if($missionId != null && $profilId != null && $nbre != null){
+        if ($missionId != null && $profilId != null && $nbre != null) {
 
             $this->missionModel->addProfil($missionId, $profilId, $nbre);
         }
@@ -174,4 +176,92 @@ class Mission extends BaseController
 
         return redirect('mission_liste');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    public function attribution($missionId)
+    {
+        if (!$this->isAuthorized()) {
+            return redirect('accueil');
+        }
+
+        $mission = $this->missionModel->find($missionId);
+        $profilsMission = $this->missionModel->getProfil($missionId);
+
+        $listeSalarie = $this->salarieModel->findAll();
+        $profilsSalarie = [];
+        foreach ($listeSalarie as $salarie) {
+            $profilsSalarie[] = $this->salarieModel->getProfil($salarie['ID_SALARIE']);
+        }
+
+        // var_dump($mission);
+        // var_dump($profilsMission);
+        // var_dump($listeSalarie);
+        // die();
+
+        return view('mission/affect_mission', [
+            'mission' => $mission,
+            'profilsMission' => $profilsMission,
+            'listeSalarie' => $listeSalarie,
+            'profilsSalarie' => $profilsSalarie,
+        ]);
+    }
+
+
+    public function affect()
+    {
+
+        $data = $this->request->getPost();
+        $nbr = $this->request->getPost('nbr');
+
+        $missionId = $this->request->getPost('ID_MISSION_0');
+        $this->missionModel->deleteSalarie($missionId);
+
+        //Cette partie est OK mais il faut que je vérifie si c'est le même
+        // for ($i = 0; ($i < $nbr); $i++) {
+        //     $idSalarie = $this->request->getPost('ID_SALARIE_' . $i);
+        //     $idMission = $this->request->getPost('ID_MISSION_' . $i);
+        //     $this->missionModel->addSalarie($idSalarie, $idMission);
+        // };
+
+        //Cette partie vérifie si c'est le même
+        for ($i = 0; ($i < $nbr); $i++) {
+            $idSalarie = $this->request->getPost('ID_SALARIE_' . $i);
+            $idMission = $this->request->getPost('ID_MISSION_' . $i);
+            $idSalarie2 = $this->request->getPost('ID_SALARIE_' . ($i + 1));
+            // var_dump($data);
+            // die();
+            // var_dump($idSalarie2);
+            if ($idSalarie != '' || $idSalarie != null) {
+                if ($idSalarie == $idSalarie2) {
+                    echo '<h1>Selection des salariés non valide !<h1>';
+                    echo '<a href=' . url_to("attribution_mission", $missionId) . '><button>Retour</button>';
+                    $this->missionModel->deleteSalarie($missionId);
+                    die();
+                } else {
+
+                    $this->missionModel->addSalarie($idSalarie, $idMission);
+                }
+            } else {
+                echo '<h1>Selection des salariés vide !<h1>';
+                echo '<a href=' . url_to("attribution_mission", $missionId) . '><button>Retour</button>';
+                $this->missionModel->deleteSalarie($missionId);
+                die();
+            }
+        }
+        ;
+
+
+        return redirect()->to(url_to("mission_liste", $missionId));
+    }
+
 }
