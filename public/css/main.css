@@ -334,6 +334,10 @@ input[type="checkbox"] + label {
     margin-bottom: 0.8rem; /* Espacement entre les différentes cases à cocher */
 }
 
+.black{
+    color : black;
+}
+
 
 /* Alignement du bouton à gauche */
 form {

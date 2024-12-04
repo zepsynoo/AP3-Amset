@@ -115,7 +115,7 @@ class Mission extends BaseController
         if (!$this->isAuthorized()) {
             return redirect('accueil');
         }
-        
+
         //Récupère le mission par rapport à son id
         $mission = $this->missionModel->find($missionId);
         //Table client
@@ -124,9 +124,9 @@ class Mission extends BaseController
         $listeProfil = $this->profilModel->findAll();
         //Jointure sur client, mission, profil
         $missionJoins = $this->missionModel->getJoinMissionInfo($missionId);
-        
+
         $profilNotInMissions = $this->profilModel->getProfilNotInMission($missionId);
-        
+
         // die(var_dump($profilNotInMission));
 
 
@@ -150,29 +150,30 @@ class Mission extends BaseController
         }
 
 
-<<<<<<< HEAD
-        $data = $this->request->getPost();
-        die(var_dump($data));
-        if (isset($data)) {
-=======
-        // $data = $this->request->getPost(['ID_CLIENT', 'INTITULE_MISSION', 'DESCRIPTION_MISSION', 'DATE_DEBUT', 'DATE_FIN']);
+
         $data = $this->request->getPost();
         // die(var_dump($data));
-        $this->missionModel->save($data);
->>>>>>> 6e736d3cb75c086c775256101bf9ef4528076441
+        if (isset($data)) {
 
-        $missionId = $this->request->getPost('ID_MISSION');
-        // die(var_dump($missionId));
-        // $profilId = $this->request->getPost('profil');
-        // $nbre = $this->request->getPost('nombreProfil');
-
-        // if ($missionId != null && $profilId != null && $nbre != null) {
-
-        //     $this->missionModel->addProfil($missionId, $profilId, $nbre);
-        // }
+            // $data = $this->request->getPost(['ID_CLIENT', 'INTITULE_MISSION', 'DESCRIPTION_MISSION', 'DATE_DEBUT', 'DATE_FIN']);
+            $data = $this->request->getPost();
+            // die(var_dump($data));
+            $this->missionModel->save($data);
 
 
-        return redirect()->to('modif-mission-' . $missionId);
+            $missionId = $this->request->getPost('ID_MISSION');
+            // die(var_dump($missionId));
+            // $profilId = $this->request->getPost('profil');
+            // $nbre = $this->request->getPost('nombreProfil');
+
+            // if ($missionId != null && $profilId != null && $nbre != null) {
+
+            //     $this->missionModel->addProfil($missionId, $profilId, $nbre);
+            // }
+
+
+            return redirect('mission_liste');
+        }
     }
 
     public function updateAddProfil()
@@ -182,22 +183,12 @@ class Mission extends BaseController
             return redirect('accueil');
         }
 
-<<<<<<< HEAD
-
-        $missionId = $this->request->getPost('missionId');
-        $profilId = $this->request->getPost('profil');
-        $nbre = $this->request->getPost('nombreProfil');
-
-        if ($missionId != null && $profilId != null && $nbre != null) {
-=======
         $missionId = $this->request->getPost('ID_MISSION');
         $profilId = $this->request->getPost('ID_PROFIL');
-        // die(var_dump($profilId));
+
         $nbre = $this->request->getPost('NOMBRE_PROFIL');
->>>>>>> 6e736d3cb75c086c775256101bf9ef4528076441
 
         $this->missionModel->addProfil($missionId, $profilId, $nbre);
-
         return redirect()->to('modif-mission-' . $missionId);
     }
 
@@ -209,10 +200,8 @@ class Mission extends BaseController
 
         $missionId = $this->request->getPost('ID_MISSION');
         // die(var_dump($missionId));
-
         $profilId = $this->request->getPost('ID_PROFIL');
         // die(var_dump($profilId));
-
         $this->missionModel->deleteProfil($missionId, $profilId);
 
         return redirect()->to('modif-mission-' . $missionId);
@@ -227,11 +216,9 @@ class Mission extends BaseController
             return redirect('accueil');
         }
 
-<<<<<<< HEAD
-=======
+
         $missionId = $this->request->getPost('ID_MISSION');
         // die(var_dump($missionId));
->>>>>>> 6e736d3cb75c086c775256101bf9ef4528076441
         //Instruction pour supprimer le mission
         // $profils = $this->request->getPost('profils[]');
         // die(var_dump($profils));
@@ -255,14 +242,15 @@ class Mission extends BaseController
 
 
 
-    public function attribution($missionId)
+    public function PageAttributionDesSalarie($missionId)
     {
         if (!$this->isAuthorized()) {
             return redirect('accueil');
         }
 
         $mission = $this->missionModel->find($missionId);
-        $profilsMission = $this->missionModel->getProfil($missionId);
+        
+        $profilsMission = $this->missionModel->getMissionProfil($missionId);
 
         $listeSalarie = $this->salarieModel->findAll();
         $profilsSalarie = [];
@@ -270,12 +258,12 @@ class Mission extends BaseController
             $profilsSalarie[] = $this->salarieModel->getProfil($salarie['ID_SALARIE']);
         }
 
-        // var_dump($mission);
-        // var_dump($profilsMission);
-        // var_dump($listeSalarie);
-        // die();
+        // die(var_dump($mission));
+        // die(var_dump($missionId));
+        // die(var_dump($profilsMission));
+        // die(var_dump($listeSalarie));
 
-        return view('mission/affect_mission', [
+        return view('mission_affecter_salarier', [
             'mission' => $mission,
             'profilsMission' => $profilsMission,
             'listeSalarie' => $listeSalarie,
@@ -291,6 +279,7 @@ class Mission extends BaseController
         $nbr = $this->request->getPost('nbr');
 
         $missionId = $this->request->getPost('ID_MISSION_0');
+        // die(var_dump($missionId));
         $this->missionModel->deleteSalarie($missionId);
 
         //Cette partie est OK mais il faut que je vérifie si c'est le même
@@ -308,10 +297,12 @@ class Mission extends BaseController
             // var_dump($data);
             // die();
             // var_dump($idSalarie2);
+
             if ($idSalarie != '' || $idSalarie != null) {
                 if ($idSalarie == $idSalarie2) {
                     echo '<h1>Selection des salariés non valide !<h1>';
                     echo '<a href=' . url_to("attribution_mission", $missionId) . '><button>Retour</button>';
+                    
                     $this->missionModel->deleteSalarie($missionId);
                     die();
                 } else {
@@ -326,9 +317,10 @@ class Mission extends BaseController
             }
         }
         ;
-
-
         return redirect()->to(url_to("mission_liste", $missionId));
     }
+
+
+
 
 }

@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class Mission extends Model
 {
-    protected $table            = 'mission';
-    protected $primaryKey       = 'ID_MISSION';
+    protected $table = 'mission';
+    protected $primaryKey = 'ID_MISSION';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = [
+    protected $returnType = 'array';
+    protected $useSoftDeletes = false;
+    protected $protectFields = true;
+    protected $allowedFields = [
         'ID_CLIENT',
         'INTITULE_MISSION',
         'DESCRIPTION_MISSION',
@@ -24,32 +24,32 @@ class Mission extends Model
 
     // Dates
     protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    protected $dateFormat = 'datetime';
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
+    protected $deletedField = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
+    protected $validationRules = [];
+    protected $validationMessages = [];
+    protected $skipValidation = false;
     protected $cleanValidationRules = true;
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    protected $beforeInsert = [];
+    protected $afterInsert = [];
+    protected $beforeUpdate = [];
+    protected $afterUpdate = [];
+    protected $beforeFind = [];
+    protected $afterFind = [];
+    protected $beforeDelete = [];
+    protected $afterDelete = [];
 
     //Methode pour afficher
     public function addProfil($idMission, $idProfil, $nombreProfil)
     {
-        $db      = \Config\Database::connect();
+        $db = \Config\Database::connect();
         $builder = $db->table('profil_mission');
 
         $builder->insert([
@@ -72,8 +72,6 @@ class Mission extends Model
         );
     }
 
-<<<<<<< HEAD
-
     /// Fonction insérant un salarie selon l'idSalarie et l'idMission
     /// ! adapter selon la base de données !
 
@@ -95,43 +93,47 @@ class Mission extends Model
         $db = \Config\Database::Connect();
         $builder = $db->table('salarie_mission');
         $builder->Where('salarie_mission.ID_MISSION', $idMission);
-=======
-    //Join sur mission et client
+    }
+
     public function getMissionClient()
     {
         return (
             $this->select('*')
-            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
-            ->orderBy('mission.ID_MISSION')
-            ->findAll()
+                ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
+                ->orderBy('mission.ID_MISSION')
+                ->findAll()
 
         );
     }
 
-    //Join sur mission et profil
-    // public function getMissionProfil(){
-    //     return (
-    //         $this->select('*')
-    //         ->from('profil_mission')
-    //         ->join('mission', 'mission.ID_MISSION = profil_mission.ID_MISSION')
-    //         ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
-    //         ->orderBy('mission.ID_MISSION')
-    //         ->findAll()
 
-    //     );
-    // }
+    // // Join sur mission et profil
+
+    public function getMissionProfil($idmission){
+        return (
+            $this->select('pm.ID_PROFIL, pm.ID_MISSION, pm.NOMBRE_PROFIL, p.LIBELLE')
+                ->from('profil_mission pm')
+                ->join('mission m', 'm.ID_MISSION = pm.ID_MISSION')
+                ->join('profil p', 'p.ID_PROFIL = pm.ID_PROFIL')
+                ->where('pm.ID_MISSION', $idmission)
+                ->groupBy('pm.ID_PROFIL') // Grouper par ID_PROFIL pour éviter les doublons
+                ->orderBy('pm.ID_PROFIL')
+                ->findAll()
+        );
+    }
+
 
     //Methode pour afficher avec id de mission
     public function getJoinMissionInfo($missionId)
     {
         return (
             $this->select('*')
-            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
-            ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
-            ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
-            ->where('mission.ID_MISSION', $missionId)
-            ->orderBy('profil_mission.ID_MISSION')
-            ->findAll()
+                ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
+                ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
+                ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+                ->where('mission.ID_MISSION', $missionId)
+                ->orderBy('profil_mission.ID_MISSION')
+                ->findAll()
         );
     }
 
@@ -144,12 +146,12 @@ class Mission extends Model
         $builder->delete();
     }
 
-    public function deleteProfilMission($missionId) {
+    public function deleteProfilMission($missionId)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('profil_mission');
         $builder->where('ID_MISSION', $missionId);
         // $builder->where('ID_PROFIL', $profilId);
->>>>>>> 6e736d3cb75c086c775256101bf9ef4528076441
         $builder->delete();
     }
 

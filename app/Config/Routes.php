@@ -83,8 +83,8 @@ $routes->post('modif-mission-supp-profil', 'Mission::updateDeleteProfil', ['as' 
 $routes->post('suppr-mission', 'Mission::delete', ['as' => 'mission_delete']);
 
 // affect: http://amset.com/accueil/liste-mission/affect-mission
-$routes->get('affect-mission-(:num)', 'Mission::affect/$1', ['as' => 'mission_affect']);
-$routes->post('affect-mission', 'Mission::affectUpdate', ['as' => 'mission_affect']);
+$routes->get('affect-mission-(:num)', 'Mission::PageAttributionDesSalarie/$1', ['as' => 'mission_attribution']);
+$routes->post('affect-mission', 'Mission::affect', ['as' => 'mission_affect']);
 
 
 // --------------------------------------------------------
@@ -108,3 +108,5 @@ $routes->post('suppr-client', 'Client::delete', ['as' => 'client_delete']);
 // $routes->get('suppr-client-(:num)', 'Client::delete/$1', ['as' => 'client_delete']);
 
 // image : http://amset.local/upload/logo.png
+
+// --------------------------------------------------------
