@@ -4,7 +4,7 @@
 
 <div>
 
-    <h1>Bienvenue sur la liste de Profil</h1>
+    <h1>Bienvenue sur la liste des Profils</h1>
 
 </div>
 </header>
@@ -26,7 +26,7 @@
             foreach ($listeProfils as $profil) {
                 $table->addRow(
                     $profil['LIBELLE'],
-                    '<a href="'.url_to('profils_modif', $profil['ID_PROFIL']).'">Modifier</a>',
+                    '<a href="'.url_to('profils_modif', $profil['ID_PROFIL']).'"><button>Modifier</button></a>',
 
                     '<form method=post action="'.url_to('profils_delete', $profil['ID_PROFIL']).'">
 	                <input type="hidden" name="ID_PROFIL" value="'.$profil['ID_PROFIL'].'">

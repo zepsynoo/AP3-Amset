@@ -5,42 +5,42 @@
 
     <h1>Bienvenue sur la liste des Clients</h1>
 
-    <h2>Liste des Clients</h2>
-
-    <a href="<?= url_to('client_ajout') ?>"><button class="button">Ajouter Client</button></a>
-
-    <?php
-    $tableau = new \CodeIgniter\View\Table();
-    $tableau->setHeading('nom', 'prenom', 'email', 'telephone', 'adresse', 'ville', 'code postal', 'raison social', 'image', 'modifier', 'supprimer');
-
-    foreach ($clients as $client) {
-        $imageSrc = $client['IMG'] ? base_url($client['IMG']) : 'default-image-path.jpg';
-        var_dump($client);
-        $tableau->addRow(
-            $client['NOM'],
-            $client['PRENOM'],
-            $client['EMAIL'],
-            $client['TELEPHONE'],
-            $client['ADRESSE'],
-            $client['VILLE'],
-            $client['CODE_POSTAL'],
-            $client['RAISON_SOCIAL'],
-            '<img src="' . $imageSrc . '" alt="Image du client" width="100" height="100">',
-            '<a href="' . url_to('client_modif', $client['ID_CLIENT']) . ' "><button class="button">Modifier</button></a>',
-            '<a href="' . url_to('client_delete', $client['ID_CLIENT']) . '" onclick="return confirm(\'Êtes-vous sûr de vouloir supprimer ce client ?\')"><button class="button">Supprimer</button></a>'
-        );
-    }
-
-    echo $tableau->generate();
-    ?>
-
-
 </div>
-
 </header>
-<!-- commencer le code ici  -->
 
+<h2>Liste des Clients</h2>
+<div>
+    <section>
+        <form method=get action=<?= url_to('client_ajout') ?>><button>Ajouter Client</button></form>
+        <div class="table-container">
+            <?php
+            use \CodeIgniter\View\Table;
+            $tableau = new \CodeIgniter\View\Table();
+            $tableau->setHeading('nom', 'prenom', 'email', 'telephone', 'adresse', 'ville', 'code postal', 'raison_social', 'modifier', 'supprimer');
 
+            foreach ($clients as $client) {
+                $tableau->addRow(
+                    $client['NOM'],
+                    $client['PRENOM'],
+                    $client['EMAIL'],
+                    $client['TELEPHONE'],
+                    $client['ADRESSE'],
+                    $client['VILLE'],
+                    $client['CODE_POSTAL'],
+                    $client['RAISON_SOCIAL'],
 
+                    '<a href="' . url_to('client_modif', $client['ID_CLIENT']) . ' "><button>Modifier</button></a>',
+
+                    '<form method="post" action="' . url_to('client_delete', $client['ID_CLIENT']) . '">
+                <input type="hidden" name="ID_CLIENT" value="' . $client['ID_CLIENT'] . '">
+                <input type="submit" value="Supprimer" onclick="return confirm(\'Si vous supprimer ce client cela supprimeras tout les mission qui sont associer à ce client \')" >
+                </form>'
+                );
+            }
+            echo $tableau->generate();
+            ?>
+        </div>
+    </section>
+</div>
 
 <?= $this->endSection() ?>

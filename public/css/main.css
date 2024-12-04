@@ -1,515 +1,357 @@
-* {
-    transition: background-color 300ms ease, color 300ms ease;
+
+/* Réinitialisation de base */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+a,
+table,
+th,
+td {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-*:focus {
-    background-color: rgba(221, 72, 20, .2);
-    outline: none;
+.titres-blanc {
+    color: #ffffff; /* Force la couleur blanc */
 }
 
-html,
 body {
-    color: rgba(33, 37, 41, 1);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-    font-size: 16px;
-    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #4b4b4b;
+    /* Fond sombre */
+    color: #f1f1f1;
+    /* Texte par défaut en blanc cassé */
+    line-height: 1.6;
     padding: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+    margin: 0;
 }
 
+
+/* Titres */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #000000;
+    /* Titres en blanc */
+}
+
+/* Header */
 header {
-    background-color: rgba(247, 248, 249, 1);
-    padding: .4rem 0 0;
-}
-
-.menu {
-    padding: .4rem 2rem;
-}
-
-header ul {
-    border-bottom: 1px solid rgba(242, 242, 242, 1);
-    list-style-type: none;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-    text-align: right;
-}
-
-header li {
-    display: inline-block;
-}
-
-header li a {
-    border-radius: 5px;
-    color: rgba(0, 0, 0, .5);
-    display: block;
-    height: 44px;
-    text-decoration: none;
-}
-
-header li.menu-item a {
-    border-radius: 5px;
-    margin: 5px 0;
-    height: 38px;
-    line-height: 36px;
-    padding: .4rem .65rem;
-    text-align: center;
-}
-
-header li.menu-item a:hover,
-header li.menu-item a:focus {
-    background-color: rgba(221, 72, 20, .2);
-    color: rgba(221, 72, 20, 1);
-}
-
-header .logo {
-    float: left;
-    height: 44px;
-    padding: .4rem .5rem;
-}
-
-header .menu-toggle {
-    display: none;
-    float: right;
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-header .menu-toggle button {
-    background-color: rgba(221, 72, 20, .6);
-    border: none;
-    border-radius: 3px;
-    color: rgba(255, 255, 255, 1);
-    cursor: pointer;
-    font: inherit;
-    font-size: 1.3rem;
-    height: 36px;
-    padding: 0;
-    margin: 11px 0;
-    overflow: visible;
-    width: 40px;
-}
-
-header .menu-toggle button:hover,
-header .menu-toggle button:focus {
-    background-color: rgba(221, 72, 20, .8);
-    color: rgba(255, 255, 255, .8);
-}
-
-header .heroe {
-    margin: 0 auto;
-    max-width: 1100px;
-    padding: 1rem 1.75rem 1.75rem 1.75rem;
-}
-
-header .heroe h1 {
-    font-size: 2.5rem;
-    font-weight: 500;
-}
-
-header .heroe h2 {
-    font-size: 1.5rem;
-    font-weight: 300;
-}
-
-section {
-    margin: 0 auto;
-    max-width: 1100px;
-    padding: 2.5rem 1.75rem 3.5rem 1.75rem;
-}
-
-section h1 {
-    margin-bottom: 2.5rem;
-}
-
-section h2 {
-    font-size: 120%;
-    line-height: 2.5rem;
-    padding-top: 1.5rem;
-}
-
-section pre {
-    background-color: rgba(247, 248, 249, 1);
-    border: 1px solid rgba(242, 242, 242, 1);
-    display: block;
-    font-size: .9rem;
-    margin: 2rem 0;
-    padding: 1rem 1.5rem;
-    white-space: pre-wrap;
-    word-break: break-all;
-}
-
-section code {
-    display: block;
-}
-
-section a {
-    color: rgba(221, 72, 20, 1);
-}
-
-section svg {
-    margin-bottom: -5px;
-    margin-right: 5px;
-    width: 25px;
-}
-
-.further {
-    background-color: rgba(247, 248, 249, 1);
-    border-bottom: 1px solid rgba(242, 242, 242, 1);
-    border-top: 1px solid rgba(242, 242, 242, 1);
-}
-
-.further h2:first-of-type {
-    padding-top: 0;
-}
-
-.svg-stroke {
-    fill: none;
-    stroke: #000;
-    stroke-width: 32px;
-}
-
-footer {
-    background-color: rgba(221, 72, 20, .8);
-    text-align: center;
-}
-
-footer .environment {
-    color: rgba(255, 255, 255, 1);
-    padding: 2rem 1.75rem;
-}
-
-footer .copyrights {
-    background-color: rgba(62, 62, 62, 1);
-    color: rgba(200, 200, 200, 1);
-    padding: .25rem 1.75rem;
-}
-
-@media (max-width: 629px) {
-    header ul {
-        padding: 0;
-    }
-
-    header .menu-toggle {
-        padding: 0 1rem;
-    }
-
-    header .menu-item {
-        background-color: rgba(244, 245, 246, 1);
-        border-top: 1px solid rgba(242, 242, 242, 1);
-        margin: 0 15px;
-        width: calc(100% - 30px);
-    }
-
-    header .menu-toggle {
-        display: block;
-    }
-
-    header .hidden {
-        display: none;
-    }
-
-    header li.menu-item a {
-        background-color: rgba(221, 72, 20, .1);
-    }
-
-    header li.menu-item a:hover,
-    header li.menu-item a:focus {
-        background-color: rgba(221, 72, 20, .7);
-        color: rgba(255, 255, 255, .8);
-    }
-}
-
-.bouton {
-    padding: 1px 6px;
-    border: 1px outset buttonborder;
-    border-radius: 3px;
-    color: buttontext;
-    background-color: buttonface;
-    text-decoration: none;
-}
-
-/*-----------------------------------------------------------------------------------------*/
-.table-container {
+    background-color: #ffffff;
+    /* Cadre blanc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Ombre douce */
+    padding: 1.5rem 2rem;
+    margin: 2rem auto;
+    /* Ajout d'espace autour */
+    border-radius: 10px;
+    /* Coins arrondis */
+    max-width: 1200px;
+    /* Largeur maximale */
     display: flex;
-    justify-content: center;
-    /* Centre horizontalement */
     align-items: center;
-    /* Centre verticalement */
-    height: 100vh;
-    /* Prend toute la hauteur de la page */
+    justify-content: space-between;
 }
 
+/* Menu centré */
+header nav {
+    margin: 0 auto;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    /* Espacement entre les liens */
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header nav ul li a:hover {
+    background-color: #007bff;
+    /* Bleu pour survol */
+    color: #ffffff;
+}
+
+/* Logo à droite */
+header .logo img {
+    max-height: 60px;
+    /* Ajuste la taille */
+}
+
+/* Section principale */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tableau */
 table {
+    width: 100%;
     border-collapse: collapse;
-    font-size: 1.4em;
-    width: 80%;
-    /* Ajustez la largeur selon vos besoins */
-    text-align: center;
+    margin: 2rem 0;
+}
+
+table th {
+    background-color: #ffffff;
+    /* Fond blanc pour l'en-tête */
+    color: #333333;
+    /* Texte sombre pour contraste */
+    font-weight: bold;
+    text-align: left;
+    padding: 1rem;
 }
 
 table td {
-    padding: 15px;
+    background-color: #f6f6f6;
+    /* Fond clair pour les cellules */
+    color: #333333;
+    /* Texte sombre */
+    padding: 1rem;
+    border: 1px solid #ddd;
+    /* Bordure subtile */
 }
 
-table thead th {
-    background-color: #54585d;
+table tr:nth-child(even) td {
+    background-color: #ececec;
+    /* Alternance de couleurs */
+}
+
+table tr:hover td {
+    background-color: #d9d9d9;
+    /* Couleur plus foncée au survol */
+}
+
+/* Boutons */
+button,
+.btn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button.primary,
+.btn.primary {
+    background-color: #007bff;
     color: #ffffff;
-    font-weight: bold;
-    border: 1px solid #54585d;
 }
 
-table tbody td {
-    color: #636363;
-    border: 1px solid #dddfe1;
+button.primary:hover,
+.btn.primary:hover {
+    background-color: #0056b3;
 }
 
-table tbody tr {
-    background-color: #f9fafb;
+button.secondary,
+.btn.secondary {
+    background-color: #f8f9fa;
+    color: #333333;
+    border: 1px solid #ddd;
 }
 
-table tbody tr:nth-child(odd) {
-    background-color: #ffffff;
+button.secondary:hover,
+.btn.secondary:hover {
+    background-color: #e2e6ea;
 }
 
-/* ----------------------------------------------------------------------------------- */
-*,
-*:before,
-*:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-form {
-    max-width: 300px;
-    margin: 50px auto;
-    padding: 10px 10px 0px;
-    background: #00000000;
+/* Formulaire spécifique */
+.form-style {
+    background-color: #ffffff; /* Fond blanc pour le formulaire */
+    padding: 2rem;
     border-radius: 10px;
-    font-size: 1.3em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    max-width: 800px;
+    margin: 2rem auto;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-input[type="submit"],
-textarea,
-select,
-select:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    height: auto;
-    margin: 0;
-    outline: 0;
-    padding: 15px;
+/* Styles des légendes de formulaire */
+form fieldset legend {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 1rem;
+}
+
+/* Label du formulaire */
+.form-style label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333333; /* Couleur sombre pour les labels */
+}
+
+/* Styles des champs de saisie */
+.form-style input[type="text"],
+.form-style input[type="email"],
+.form-style input[type="tel"],
+.form-style input[type="number"],
+.form-style select,
+.form-style textarea {
     width: 100%;
-    background-color: #fff;
-    color: #000;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
-    margin-bottom: 30px;
-    font-size: 0.9em;
-}
-
-input[type="submit"] {
-    background-color: #838383;
-    color: #fff;
-    font-size: 1.1em;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-    margin: 0 4px 8px 0;
-}
-
-button {
-    padding: 19px 39px 18px 39px;
-    background-color: #838383;
-    color: #fff;
-    font-size: 18px;
-    text-align: center;
-    font-style: normal;
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    width: 100%;
-    border: 1px solid #fff;
-    border-width: 1px 1px 3px;
-    box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
-    margin-bottom: 10px;
+    background-color: #f9f9f9; /* Fond clair */
+    font-size: 1rem;
+    color: #333333;
+    transition: border-color 0.3s;
 }
 
-fieldset {
-    margin-bottom: 30px;
+.form-style input[type="text"]:focus,
+.form-style input[type="email"]:focus,
+.form-style input[type="tel"]:focus,
+.form-style select:focus,
+.form-style textarea:focus {
+    border-color: #007bff; /* Bordure bleu au focus */
+    outline: none;
+    background-color: #ffffff; /* Fond blanc au focus */
+}
+
+/* Styles des boutons */
+.form-style input[type="submit"] {
+    padding: 0.8rem 1.5rem;
+    background-color: #007bff;
+    color: #ffffff;
     border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+    margin-top: 1rem;
 }
 
-legend {
-    font-size: 1.4em;
-    margin-bottom: 10px;
+.form-style input[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Effet de zoom au survol */
 }
 
-label {
-    display: block;
-    margin-bottom: 8px;
+/* Styles des champs de sélection */
+.form-style select {
+    padding: 0.8rem;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    color: #333333;
+    transition: border-color 0.3s;
 }
 
-label.light {
-    font-weight: 300;
-    display: inline;
+/* Styles pour les boutons + et - */
+.form-style input[type="submit"][value="+"],
+.form-style input[type="submit"][value="-"] {
+    width: auto;
+    padding: 0.8rem 1rem;
+    background-color: #28a745;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 1.2rem;
 }
 
-
-@media screen and (min-width: 480px) {
-
-    form {
-        max-width: 480px;
-    }
-
+.form-style input[type="submit"][value="+"]:hover,
+.form-style input[type="submit"][value="-"]:hover {
+    background-color: #218838;
+    transform: scale(1.05);
 }
 
-/* table {
-    display: block;
-    margin: 0 auto;
-  } */
-
-
-/*--------------------------------------------------------------------------------*/
-
-/* *,
-*:before,
-*:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+/* Styles pour les profils (labels et inputs) */
+.form-style .form-group {
+    margin-bottom: 1.5rem;
 }
 
+.form-style .form-description {
+    font-size: 0.9rem;
+    color: #666666; /* Texte secondaire */
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+
+/* Espacement et alignement des formulaires multiples */
 form {
-    max-width: 300px;
-    margin: 50px auto;
-    padding: 20px 30px 0px;
-    background: #e7e7e7;
-    border-radius: 8px;
-    font-size: 1.3em;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-input[type="submit"],
-textarea,
-select,
-select:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    height: auto;
-    margin: 0;
-    outline: 0;
-    padding: 15px;
-    width: 100%;
-    background-color: #fff;
-    color: #000;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
-    margin-bottom: 30px;
-    font-size: 0.9em;
-}
-
-input[type="submit"] {
-	background-color: #838383;
-	color: #fff;
-	font-size: 1.1em;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-    margin: 0 4px 8px 0;
-}
-
-button {
-    padding: 19px 39px 18px 39px;
-	background-color: #838383;
-	color: #fff;
-    font-size: 18px;
-    text-align: center;
-    font-style: normal;
-    border-radius: 5px;
-    width: 100%;
-    border: 1px solid #fff;
-    border-width: 1px 1px 3px;
-    box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espacement entre les champs */
 }
 
 fieldset {
-    margin-bottom: 30px;
-    border: none;
+    border: none; /* Retirer la bordure du fieldset */
 }
 
-legend {
-    font-size: 1.4em;
-    margin-bottom: 10px;
+/* Espacement entre les sections de formulaire */
+.form-style form > div {
+    margin-bottom: 1.5rem;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
+    font-weight: bold;
+    color: #000000; /* Texte en noir */
+    margin-bottom: 0.5rem;
+    display: block; /* Pour s'assurer que le label prend toute la largeur */
 }
 
-label.light {
-    font-weight: 300;
-    display: inline;
+/* Style des cases à cocher */
+input[type="checkbox"] {
+    margin-right: 0.5rem; /* Espacement entre la case à cocher et le texte */
+    accent-color: #000000; /* Change la couleur de la case à cocher en noir */
+}
+
+/* Texte des cases à cocher */
+input[type="checkbox"] + label {
+    font-size: 1rem;
+    color: #000000; /* Texte en noir */
+    margin-bottom: 0.5rem;
+    display: inline-block; /* Pour que le texte et la case à cocher soient sur la même ligne */
+}
+
+/* Espacement des lignes */
+.noir {
+    margin-bottom: 0.8rem; /* Espacement entre les différentes cases à cocher */
 }
 
 
-@media screen and (min-width: 480px) {
-
-    form {
-        max-width: 480px;
-    }
-
+/* Alignement du bouton à gauche */
+form {
+    text-align: left; /* Aligne le contenu du formulaire à gauche */
 }
 
-* {
-    text-align: center;
-    line-height: 2em;
-    box-sizing: border-box;
+form button {
+    background-color: #007bff; /* Couleur de fond du bouton */
+    color: white; /* Texte en blanc */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px; /* Coins arrondis */
+    display: inline-block; /* Permet de contrôler le positionnement */
+    margin: 0; /* Enlève les marges par défaut */
 }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+form button:hover {
+    background-color: #0056b3; /* Couleur de fond lors du survol */
 }
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ccc;
-}
-
-body>div {
-    width: 50%;
-}
-
-#errorMsg {
-    margin: 0;
-    color: red;
-    text-align: center;
-    font-size: 1.5em;
-} */

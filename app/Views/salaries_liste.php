@@ -1,5 +1,4 @@
 <?= $this->extend('_layout') ?>
-
 <?= $this->section('contenu') ?>
 
 <div>
@@ -11,13 +10,11 @@
 
 <h2>Liste des Salariés</h2>
 <div>
-
     <section>
         <form method=get action=<?= url_to('salarie_ajout') ?>><button>Ajouter un Salariés</button></form>
         <div class="table-container">
             <?php
             use \CodeIgniter\View\Table;
-
             $table = new \CodeIgniter\View\Table();
             $table->setHeading('Prenom', 'Nom', 'Civilité', 'Email', 'Téléphone', 'Adresse', 'Code-Postal', 'Ville', 'Profils', 'Modifier', 'Supprimer');
 
@@ -32,15 +29,13 @@
                     esc($salarie['CODE_POSTAL_SALARIE']),
                     esc($salarie['VILLE_SALARIE']),
                     esc($salarie['profil']), // Profils concaténés
-                    '<a href="' . url_to('salarie_modif', $salarie['ID_SALARIE']) . '">Modifier</a>',
+                    '<a href="' . url_to('salarie_modif', $salarie['ID_SALARIE']) . '"><button>Modifier</button></a>',
                     '<form method="post" action="' . url_to('salarie_delete', $salarie['ID_SALARIE']) . '">
                         <input type="hidden" name="ID_SALARIE" value="' . $salarie['ID_SALARIE'] . '">
                         <input type="submit" value="Supprimer">
                     </form>'
                 );
             }
-
-            // Affichage de la table
             echo $table->generate();
             ?>
         </div>

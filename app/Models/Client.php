@@ -50,4 +50,40 @@ class Client extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function deleteMissionProfils($missionid){
+        $db = \Config\Database::Connect();
+        $builder = $db->table('profil_mission');
+        $builder->where('ID_MISSION',$missionid);
+        $builder->delete();
+
+    }
+
+    public function deleteMissionSalarie($missionid){
+        $db = \Config\Database::connect();
+        $builder = $db->table('salarie_mission');
+        $builder->where('ID_MISSION', $missionid);
+        $builder->delete();
+    }
+
+
+    public function deleteMissionClient($client){
+        $db = \Config\Database::Connect();
+        $builder = $db->table('mission');
+        $builder->where('ID_CLIENT',$client);
+        $builder->delete();
+
+    }
+
+
+    public function getIdMission($idClient){
+        return $this->db->table('mission')
+            ->select('ID_MISSION')
+            ->where('ID_CLIENT', $idClient)
+            ->get()
+            ->getRowArray();
+    }
 }
+
+
+
