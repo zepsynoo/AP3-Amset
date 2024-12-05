@@ -90,7 +90,7 @@ class Salarie extends Model
     //----------------------------------------------------------------------
     // delete
 
-    // supprime l'id du salarier dans la table "salarie_profil" et odns tou tles profils du salarie
+    // supprime l'id du salarier dans la table "salarie_profil" 
     public function deleteProfilsSalarie($idSalarie)
     {
         $db = \Config\Database::connect();
@@ -98,8 +98,17 @@ class Salarie extends Model
         $builder->where('ID_SALARIE', $idSalarie);
         $builder->delete();
     }
+    
+    // supprime l'id du salarier dans la table "salarie_mission" 
+    public function deleteMissionSalarie($idSalarie)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('salarie_mission');
+        $builder->where('ID_SALARIE', $idSalarie);
+        $builder->delete();
+    }
 
-    // supprime l'id du profils qui et selection par le salarie dans la table "salarie_profil"
+    // supprime l'id du profils et du salarier dans la table "salarie_profil"
     public function deleteProfilSalarie($idSalarie, $idProfil)
     {
         $db = \Config\Database::connect();
@@ -108,4 +117,5 @@ class Salarie extends Model
         $builder->where('ID_PROFIL', $idProfil);
         $builder->delete();
     }
+
 }
