@@ -33,14 +33,27 @@ class Salarie extends BaseController
             return redirect('accueil');
         }
 
-        // Récupérer les salariés avec leurs profils
-        $listeSalaries = $this->salarieModel->findAllAvecProfils();
+        // Récupérer tous les profils pour le filtre
+        $listeProfils = $this->profilModel->findAll();
+
+        // Récupérer l'ID du profil sélectionné (si présent)
+        $profilId = $this->request->getGet('profil');
+
+        // Récupérer les salariés filtrés ou non
+        if ($profilId) {
+            $listeSalaries = $this->salarieModel->recupSalariesDuProfil((int) $profilId);
+            // die(var_dump($listeSalaries));
+        } else {
+            $listeSalaries = $this->salarieModel->findAllAvecProfils();
+        }
 
         // Passer les données à la vue
         return view(
             'salaries_liste',
             [
-                'listeSalaries' => $listeSalaries
+                'listeSalaries' => $listeSalaries,
+                'listeProfils' => $listeProfils,
+                'profilSelectionne' => $profilId, // Passer le profil sélectionné pour la vue
             ]
         );
     }
@@ -79,7 +92,7 @@ class Salarie extends BaseController
         $nouvelSalarieID = $this->salarieModel->getInsertID();
 
         $profils = $this->request->getPost('profils[]');
-
+        // die(var_dump($profils));
         foreach ($profils as $idProfil) {
             $this->salarieModel->addProfil($idProfil, $nouvelSalarieID);
         }
@@ -129,9 +142,10 @@ class Salarie extends BaseController
         if (!$this->isAuthorized()) {
             return redirect('accueil');
         }
-        
+
         $salarieData = $this->request->getpost(['ID_SALARIE']);
         $this->salarieModel->deleteProfilsSalarie($salarieData);
+        $this->salarieModel->deleteMissionSalarie($salarieData);
         $this->salarieModel->delete($salarieData);
         return redirect('salarie_liste');
     }
@@ -147,7 +161,7 @@ class Salarie extends BaseController
 
         $idProfil = $this->request->getPost('ID_PROFIL');
         $idSalarie = $this->request->getPost('ID_SALARIE');
-        $this->salarieModel->addProfil($idProfil,$idSalarie);
+        $this->salarieModel->addProfil($idProfil, $idSalarie);
 
         return redirect()->to(url_to("salarie_modif", $idSalarie));
     }
@@ -157,7 +171,7 @@ class Salarie extends BaseController
         if (!$this->isAuthorized()) {
             return redirect('accueil');
         }
-        
+
         // $data = $this->request->getPost();
         $idSalarie = $this->request->getPost('ID_SALARIE');
         $idProfil = $this->request->getPost('ID_PROFIL');

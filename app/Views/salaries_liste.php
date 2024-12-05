@@ -2,16 +2,29 @@
 <?= $this->section('contenu') ?>
 
 <div>
-
-    <h1>Bienvenue sur la liste de Salariés</h1>
-
+    <h1>Liste des Salariés</h1>
 </div>
 </header>
 
-<h2>Liste des Salariés</h2>
 <div>
     <section>
-        <form method=get action=<?= url_to('salarie_ajout') ?>><button>Ajouter un Salariés</button></form>
+        <div class="table-container">
+            <form method=get action=<?= url_to('salarie_ajout') ?>><button>Ajouter un Salariés</button></form><br>
+            <!-- Formulaire de filtre -->
+            <form method="get" action="<?= url_to('salarie_liste') ?>"> <!-- Soumet au même contrôleur -->
+                <label for="profil">Filtrer par profil :</label>
+                <button type="submit">Filtrer</button>
+                <select name="profil" id="profil">
+                    <option value="">Tous</option>
+                    <?php foreach ($listeProfils as $profil): ?>
+                        <option value="<?= esc($profil['ID_PROFIL']) ?>" <?= ($profil['ID_PROFIL'] == $profilSelectionne) ? 'selected' : '' ?>>
+                            <?= esc($profil['LIBELLE']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </form>
+        </div>
+        <!-- Affichage des salariés -->
         <div class="table-container">
             <?php
             use \CodeIgniter\View\Table;
@@ -30,10 +43,12 @@
                     esc($salarie['VILLE_SALARIE']),
                     esc($salarie['profil']), // Profils concaténés
                     '<a href="' . url_to('salarie_modif', $salarie['ID_SALARIE']) . '"><button>Modifier</button></a>',
+
                     '<form method="post" action="' . url_to('salarie_delete', $salarie['ID_SALARIE']) . '">
-                        <input type="hidden" name="ID_SALARIE" value="' . $salarie['ID_SALARIE'] . '">
-                        <input type="submit" value="Supprimer">
-                    </form>'
+                            <input type="hidden" name="ID_SALARIE" value="' . $salarie['ID_SALARIE'] . '">
+                            <input type="submit" value="Supprimer" onclick="return confirm(\'Si vous supprimez ce salarié, cela supprimera toutes les affectations auxquelles il est associé. Confirmez-vous ?\')">
+                         </form>'
+
                 );
             }
             echo $table->generate();
@@ -41,7 +56,4 @@
         </div>
     </section>
 </div>
-
-
-
 <?= $this->endSection() ?>

@@ -32,9 +32,9 @@
                     '<a href="' . url_to('client_modif', $client['ID_CLIENT']) . ' "><button>Modifier</button></a>',
 
                     '<form method="post" action="' . url_to('client_delete', $client['ID_CLIENT']) . '">
-                <input type="hidden" name="ID_CLIENT" value="' . $client['ID_CLIENT'] . '">
-                <input type="submit" value="Supprimer" onclick="return confirm(\'Si vous supprimer ce client cela supprimeras tout les mission qui sont associer à ce client \')" >
-                </form>'
+                        <input type="hidden" name="ID_CLIENT" value="' . $client['ID_CLIENT'] . '">
+                        <input type="submit" value="Supprimer" onclick="return confirm(\'Si vous supprimer ce client cela supprimeras tout les mission qui sont associer à ce client\')" >
+                    </form>'
                 );
             }
             echo $tableau->generate();

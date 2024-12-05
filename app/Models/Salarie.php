@@ -66,6 +66,24 @@ class Salarie extends Model
         }
     }
 
+    //methode pour le filtre
+    public function recupSalariesDuProfil($idProfil = null)
+    {
+        $builder = $this->db->table('salarie s')
+            ->select('s.*, GROUP_CONCAT(p.LIBELLE SEPARATOR ", ") as profil')
+            ->join('salarie_profil sp', 's.ID_SALARIE = sp.ID_SALARIE')
+            ->join('profil p', 'p.ID_PROFIL = sp.ID_PROFIL');
+
+        // Filtrer par ID_PROFIL si nécessaire
+        if ($idProfil !== null) {
+            $builder->where('p.ID_PROFIL', $idProfil);
+        }
+
+        return $builder->groupBy('s.ID_SALARIE, p.ID_PROFIL')
+            ->get()
+            ->getResultArray();
+    }
+
     //retourne tout les profils qui sont crée dans la  table profils
     public function getProfil($idSalarie)
     {
@@ -75,6 +93,7 @@ class Salarie extends Model
         $query = $builder->getWhere(['ID_SALARIE' => $idSalarie]);
         return $query->getResultArray();
     }
+
 
     // affiche tout les profils du salrier qui sont relier au lui
     public function findAllAvecProfils()
@@ -90,7 +109,7 @@ class Salarie extends Model
     //----------------------------------------------------------------------
     // delete
 
-    // supprime l'id du salarier dans la table "salarie_profil" et odns tou tles profils du salarie
+    // supprime l'id du salarier dans la table "salarie_profil" 
     public function deleteProfilsSalarie($idSalarie)
     {
         $db = \Config\Database::connect();
@@ -99,7 +118,16 @@ class Salarie extends Model
         $builder->delete();
     }
 
-    // supprime l'id du profils qui et selection par le salarie dans la table "salarie_profil"
+    // supprime l'id du salarier dans la table "salarie_mission" 
+    public function deleteMissionSalarie($idSalarie)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('salarie_mission');
+        $builder->where('ID_SALARIE', $idSalarie);
+        $builder->delete();
+    }
+
+    // supprime l'id du profils et du salarier dans la table "salarie_profil"
     public function deleteProfilSalarie($idSalarie, $idProfil)
     {
         $db = \Config\Database::connect();
@@ -108,4 +136,5 @@ class Salarie extends Model
         $builder->where('ID_PROFIL', $idProfil);
         $builder->delete();
     }
+
 }

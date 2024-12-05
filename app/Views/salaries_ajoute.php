@@ -46,6 +46,7 @@
                 <input id="VILLE_SALARIE" name="VILLE_SALARIE" type="text">
 
                 <label for="ID_PROFIL">Profils</label>
+                <p class="red">il faut obligatoirement selection un profils pour le salarie : </p>
                 <?php foreach ($listeProfils as $profil) { ?>
                     <input class="noir" type="checkbox" name="profils[]" value="<?= $profil['ID_PROFIL'] ?>">
                     <label for="profils[]"><?= $profil['LIBELLE'] ?></label><br>
