@@ -30,10 +30,12 @@
                     esc($salarie['VILLE_SALARIE']),
                     esc($salarie['profil']), // Profils concaténés
                     '<a href="' . url_to('salarie_modif', $salarie['ID_SALARIE']) . '"><button>Modifier</button></a>',
+
                     '<form method="post" action="' . url_to('salarie_delete', $salarie['ID_SALARIE']) . '">
                         <input type="hidden" name="ID_SALARIE" value="' . $salarie['ID_SALARIE'] . '">
-                        <input type="submit" value="Supprimer">
+                        <input type="submit" value="Supprimer" onclick="return confirm(\'Si vous supprimez ce salarié, cela supprimera toutes les affectations auxquelles il est associé. Confirmez-vous ?\')">
                     </form>'
+
                 );
             }
             echo $table->generate();
