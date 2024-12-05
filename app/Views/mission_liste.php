@@ -49,12 +49,12 @@
                     $missionLigne['profils'],
                     $mission['DATE_DEBUT'],
                     $mission['DATE_FIN'],
-                    '<a class="bouton" href="' . url_to('mission_attribution', $missionClient['ID_MISSION']) . '"><button>Affecter</button></a>',
-                    '<a class="bouton" href="' . url_to('mission_modif', $mission['ID_MISSION']) . '"><button>Modifier</button></a>',
+                    '<a href="' . url_to('mission_attribution', $missionClient['ID_MISSION']) . '"><button>Affecter</button></a>',
+                    '<a href="' . url_to('mission_modif', $mission['ID_MISSION']) . '"><button>Modifier</button></a>',
                     // '<a class="bouton" href="' . url_to('mission_delete', $mission['ID_MISSION']) . '" onclick="return confirm(\'Êtes-vous sûr de vouloir supprimer ?\')"> Supprimer </a>'
                     '<form method="post" action="' . url_to('mission_delete', $mission['ID_MISSION']) . ' ">
                     <input type="hidden" name="ID_MISSION" value="' . $mission['ID_MISSION'] . '">
-                    <input type="submit" value="Supprimer" >
+                    <input type="submit"  class="bouton" value="Supprimer" onclick="return confirm(\'Êtes-vous sûr de vouloir supprimer cette mission ?\');">
                     </form>'
                 );
                 // <input type="hidden" name="profils[]" value="' . $profilMission . '">

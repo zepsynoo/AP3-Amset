@@ -64,18 +64,18 @@ class Mission extends Model
     {
         return (
             $this->select('*')
-                ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
-                ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
-                ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
-                ->orderBy('profil_mission.ID_MISSION')
-                ->findAll()
+            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
+            ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
+            ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+            ->orderBy('profil_mission.ID_MISSION')
+            ->findAll()
         );
     }
 
     /// Fonction insérant un salarie selon l'idSalarie et l'idMission
     /// ! adapter selon la base de données !
 
-    public function addSalarie($idSalarie, $idMission)
+    public function addSalarieMission($idSalarie, $idMission)
     {
         $db = \Config\Database::Connect();
         $builder = $db->table('salarie_mission');
@@ -88,20 +88,22 @@ class Mission extends Model
     /// Fonction supprimant tout les salaries selon l'idMission
     /// ! adapter selon la base de données !
 
-    public function deleteSalarie($idMission)
+    public function deleteSalarieMission($missionId)
     {
         $db = \Config\Database::Connect();
         $builder = $db->table('salarie_mission');
-        $builder->Where('salarie_mission.ID_MISSION', $idMission);
+        $builder->Where('salarie_mission.ID_MISSION', $missionId);
+        // $builder->Where('salarie_mission.ID_SALARIE', $salarieId);
+        $builder->delete();
     }
 
     public function getMissionClient()
     {
         return (
             $this->select('*')
-                ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
-                ->orderBy('mission.ID_MISSION')
-                ->findAll()
+            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
+            ->orderBy('mission.ID_MISSION')
+            ->findAll()
 
         );
     }
@@ -109,16 +111,17 @@ class Mission extends Model
 
     // // Join sur mission et profil
 
-    public function getMissionProfil($idmission){
+    public function getMissionProfil($idmission)
+    {
         return (
             $this->select('pm.ID_PROFIL, pm.ID_MISSION, pm.NOMBRE_PROFIL, p.LIBELLE')
-                ->from('profil_mission pm')
-                ->join('mission m', 'm.ID_MISSION = pm.ID_MISSION')
-                ->join('profil p', 'p.ID_PROFIL = pm.ID_PROFIL')
-                ->where('pm.ID_MISSION', $idmission)
-                ->groupBy('pm.ID_PROFIL') // Grouper par ID_PROFIL pour éviter les doublons
-                ->orderBy('pm.ID_PROFIL')
-                ->findAll()
+            ->from('profil_mission pm')
+            ->join('mission m', 'm.ID_MISSION = pm.ID_MISSION')
+            ->join('profil p', 'p.ID_PROFIL = pm.ID_PROFIL')
+            ->where('pm.ID_MISSION', $idmission)
+            ->groupBy('pm.ID_PROFIL') // Grouper par ID_PROFIL pour éviter les doublons
+            ->orderBy('pm.ID_PROFIL')
+            ->findAll()
         );
     }
 
@@ -128,12 +131,12 @@ class Mission extends Model
     {
         return (
             $this->select('*')
-                ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
-                ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
-                ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
-                ->where('mission.ID_MISSION', $missionId)
-                ->orderBy('profil_mission.ID_MISSION')
-                ->findAll()
+            ->join('client', 'mission.ID_CLIENT = client.ID_CLIENT')
+            ->join('profil_mission', 'profil_mission.ID_MISSION = mission.ID_MISSION')
+            ->join('profil', 'profil.ID_PROFIL = profil_mission.ID_PROFIL')
+            ->where('mission.ID_MISSION', $missionId)
+            ->orderBy('profil_mission.ID_MISSION')
+            ->findAll()
         );
     }
 
@@ -155,4 +158,30 @@ class Mission extends Model
         $builder->delete();
     }
 
+    public function verifSalarieMission($missionId, $salarieId)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('salarie_mission');
+
+        $exists =
+            $builder
+            ->where('ID_MISSION', $missionId)
+            ->where('ID_SALARIE', $salarieId)
+            ->countAllResults() > 0;
+
+        return $exists;
+    }
+
+    public function getNombreSalarieMission($missionId)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('salarie_mission');
+
+        $count = $builder
+                ->where('ID_MISSION', $missionId)
+                // ->where('ID_SALARIE', $salarieId)
+                ->countAllResults();
+
+        return $count; 
+    }
 }

@@ -249,7 +249,7 @@ class Mission extends BaseController
         }
 
         $mission = $this->missionModel->find($missionId);
-        
+
         $profilsMission = $this->missionModel->getMissionProfil($missionId);
 
         $listeSalarie = $this->salarieModel->findAll();
@@ -276,11 +276,38 @@ class Mission extends BaseController
     {
 
         $data = $this->request->getPost();
+        // die(var_dump($data));
         $nbr = $this->request->getPost('nbr');
+        // // die(var_dump($nbr));
 
         $missionId = $this->request->getPost('ID_MISSION_0');
-        // die(var_dump($missionId));
-        $this->missionModel->deleteSalarie($missionId);
+        // // die(var_dump($missionId));
+
+        // $salarieId = $this->request->getPost('ID_SALARIE_0');
+        // // die(var_dump($salarieId));
+
+        // //Cree un methode 
+        // $verif = $this->missionModel->verifSalarieMission($missionId, $salarieId);
+        // // die(var_dump($verif));
+
+        // $nombreMission = $this->missionModel->getNombreSalarieMission($missionId);
+        // die(var_dump($nombreMission));
+
+        // //Cree un condition ou il verifie si les cle primaire sont deja inserer dand salarie_mission
+        // if ($verif == true) {
+        //     $this->missionModel->deleteSalarieMission($missionId);
+        // } 
+        // if ($nombreMission >= $nbr) {
+        //     $this->missionModel->deleteSalarieMission($missionId);
+        // }
+
+        // $this->missionModel->addSalarieMission($salarieId, $missionId);
+
+
+
+
+
+        $this->missionModel->deleteSalarieMission($missionId);
 
         //Cette partie est OK mais il faut que je vérifie si c'est le même
         // for ($i = 0; ($i < $nbr); $i++) {
@@ -291,36 +318,80 @@ class Mission extends BaseController
 
         //Cette partie vérifie si c'est le même
         for ($i = 0; ($i < $nbr); $i++) {
-            $idSalarie = $this->request->getPost('ID_SALARIE_' . $i);
-            $idMission = $this->request->getPost('ID_MISSION_' . $i);
-            $idSalarie2 = $this->request->getPost('ID_SALARIE_' . ($i + 1));
+            $salarieId = $this->request->getPost('ID_SALARIE_' . $i);
+            $missionId = $this->request->getPost('ID_MISSION_' . $i);
+            $salarieId2 = $this->request->getPost('ID_SALARIE_' . ($i + 1));
             // var_dump($data);
             // die();
             // var_dump($idSalarie2);
+            $nombreMission = $this->missionModel->getNombreSalarieMission($missionId);
+            // die(var_dump($nombreMission));
+            // die(var_dump($nombreMission));
 
-            if ($idSalarie != '' || $idSalarie != null) {
-                if ($idSalarie == $idSalarie2) {
+            if ($salarieId != '' || $salarieId != null) {
+                if ($salarieId == $salarieId2) {
                     echo '<h1>Selection des salariés non valide !<h1>';
-                    echo '<a href=' . url_to("attribution_mission", $missionId) . '><button>Retour</button>';
-                    
-                    $this->missionModel->deleteSalarie($missionId);
+                    echo '<a href=' . url_to("mission_attribution", $missionId) . '><button>Retour</button>';
+
+                    $this->missionModel->deleteSalarieMission($missionId);
                     die();
+                    // } elseif ($nombreMission > $nbr) {
+                    //     $this->missionModel->deleteSalarieMission($missionId);
                 } else {
 
-                    $this->missionModel->addSalarie($idSalarie, $idMission);
+                    $this->missionModel->addSalarieMission($salarieId, $missionId);
                 }
             } else {
                 echo '<h1>Selection des salariés vide !<h1>';
-                echo '<a href=' . url_to("attribution_mission", $missionId) . '><button>Retour</button>';
-                $this->missionModel->deleteSalarie($missionId);
+                echo '<a href=' . url_to("mission_attribution", $missionId) . '><button>Retour</button>';
+                $this->missionModel->deleteSalarieMission($missionId);
                 die();
             }
-        }
-        ;
+        };
         return redirect()->to(url_to("mission_liste", $missionId));
     }
 
 
 
+    // }
+    //     public function affect()
+    // {
+    //     $data = $this->request->getPost();
+    //     $nbr = $this->request->getPost('nbr'); // Number of workers required
+    //     $profile = $this->request->getPost('ID_PROFIL'); // Required profile for the mission
+    //     // die(var_dump($profile));
+    //     $missionId = $this->request->getPost('ID_MISSION');
+    //     die(var_dump($missionId));
 
+    //     // Retrieve workers matching the required profile
+    //     $availableWorkers = $this->missionModel->getAvailableWorkersByProfile($profile);
+
+    //     if (count($availableWorkers) === 0) {
+    //         session()->setFlashdata('error', 'Aucun salarié ne correspond au profil demandé.');
+    //         return redirect()->to(url_to("attribution_mission", $missionId));
+    //     }
+
+    //     // Get the current number of workers assigned to this mission
+    //     $currentCount = $this->missionModel->getNombreSalarieMission($missionId);
+
+    //     if ($currentCount >= $nbr) {
+    //         session()->setFlashdata('error', 'Le nombre requis de salariés est déjà atteint pour cette mission.');
+    //         return redirect()->to(url_to("mission_liste", $missionId));
+    //     }
+
+    //     // Assign workers to the mission until the required number is reached
+    //     foreach ($availableWorkers as $worker) {
+    //         if ($currentCount >= $nbr) {
+    //             break; // Stop if we’ve assigned the required number of workers
+    //         }
+
+    //         $result = $this->missionModel->addSalarieMission($worker['ID_SALARIE'], $missionId);
+    //         if ($result) {
+    //             $currentCount++;
+    //         }
+    //     }
+
+    //     session()->setFlashdata('success', 'Affectation réussie.');
+    //     return redirect()->to(url_to("mission_liste", $missionId));
+    // // }
 }

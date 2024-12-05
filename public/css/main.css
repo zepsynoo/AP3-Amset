@@ -359,3 +359,20 @@ form button {
 form button:hover {
     background-color: #0056b3; /* Couleur de fond lors du survol */
 }
+
+.bouton {
+    background-color: #f0f0f0; /* Match the Modifier button's background */
+    border: 1px solid #ccc; /* Match border style */
+    padding: 5px 10px; /* Adjust padding for similar dimensions */
+    cursor: pointer; /* Change cursor to pointer for clickability */
+    font-size: 14px; /* Match font size */
+    color: #000; /* Text color matching the Modifier button */
+    border-radius: 3px; /* Rounded corners if applicable */
+    box-shadow: none; /* Remove extra shadow if present */
+}
+
+/* Add hover effect to match behavior */
+.bouton:hover {
+    background-color: #dedddd; /* Lighter shade on hover */
+    border-color: #bbb; /* Slightly darker border on hover */
+}

@@ -20,7 +20,7 @@
                 <label for="prenom">Prénom :</label>
                 <input id="PRENOM_SALARIE" name="PRENOM_SALARIE" type="text">
 
-                <label for="nom">nom :</label>
+                <label for="nom">Nom :</label>
                 <input id="NOM_SALARIE" name="NOM_SALARIE" type="text">
 
                 <label for="civilite">Civilité :</label>
@@ -30,7 +30,7 @@
                     <option value="femme">Femme</option>
                 </select><br>
 
-                <label for="email">email :</label>
+                <label for="email">Email :</label>
                 <input id="EMAIL_SALARIE" name="EMAIL_SALARIE" type="text">
 
                 <label for="Telephone">Téléphone :</label>
