@@ -16,7 +16,7 @@
             <?php
             use \CodeIgniter\View\Table;
             $tableau = new \CodeIgniter\View\Table();
-            $tableau->setHeading('nom', 'prenom', 'email', 'telephone', 'adresse', 'ville', 'code postal', 'raison_social', 'modifier', 'supprimer');
+            $tableau->setHeading('Nom', 'Prenom', 'Email', 'Telephone', 'Adresse', 'Ville', 'Code Postal', 'Raison Social', 'Modifier', 'Supprimer');
 
             foreach ($clients as $client) {
                 $tableau->addRow(
