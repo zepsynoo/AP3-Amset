@@ -72,6 +72,18 @@ class Mission extends Model
         );
     }
 
+    //Methode pour recuperer entre mission et salarie_mission
+    public function getJoinMissionSalarie()
+    {
+        return (
+            $this->select('*')
+            ->join('salarie_mission', 'salarie_mission.ID_MISSION = mission.ID_MISSION')
+            ->join('salarie', 'salarie.ID_SALARIE = salarie_mission.ID_SALARIE')
+            ->orderBy('salarie_mission.ID_MISSION')
+            ->findAll()
+        );
+    }
+
     /// Fonction insérant un salarie selon l'idSalarie et l'idMission
     /// ! adapter selon la base de données !
 

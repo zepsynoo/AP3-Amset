@@ -34,7 +34,8 @@
             <label for="DATE_FIN">Date fin</label>
             <input id="DATE_FIN" name="DATE_FIN" type="date">
 
-            <label for="profil">Profil</label>
+            <label for="profil">Profils</label>
+            <p class="red">il faut obligatoirement selection un profils pour le mission : </p>
             <?php
             // var_dump($listeProfil);
             foreach ($listeProfil as $profil) {

@@ -22,7 +22,7 @@
                 <label for="prenom">Prénom :</label>
                 <input id="PRENOM_SALARIE" name="PRENOM_SALARIE" type="text" value=<?= $salarieAffiche['PRENOM_SALARIE'] ?>>
 
-                <label for="nom">nom :</label>
+                <label for="nom">Nom :</label>
                 <input id="NOM_SALARIE" name="NOM_SALARIE" type="text" value=<?= $salarieAffiche['NOM_SALARIE'] ?>>
 
                 <label for="civilite">Civilite :</label>
@@ -32,7 +32,7 @@
                     <option value="femme">femme</option>
                 </select>
 
-                <label for="email">email :</label>
+                <label for="email">Email :</label>
                 <input id="EMAIL_SALARIE" name="EMAIL_SALARIE" type="text" value=<?= $salarieAffiche['EMAIL_SALARIE'] ?>>
 
                 <label for="Telephone">Téléphone :</label>

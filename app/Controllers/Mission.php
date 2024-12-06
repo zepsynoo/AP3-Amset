@@ -47,6 +47,9 @@ class Mission extends BaseController
         // die(var_dump($missionClients)); 
         // $missionProfils = $this->missionModel->getMissionProfil();
         // die(var_dump($missionProfils)); 
+        
+        $listeJoinMissionSalarie = $this->missionModel->getJoinMissionSalarie();
+        // die(var_dump($joinMissionSalarie)); 
 
         //affecter un variable qui va contenir le salarié affecter
 
@@ -56,7 +59,8 @@ class Mission extends BaseController
         return view('mission_liste', [
             'listeMission' => $listeMission,
             'missionClients' => $missionClients,
-            'clientMissionProfils' => $clientMissionProfils
+            'clientMissionProfils' => $clientMissionProfils,
+            'listeJoinMissionSalaries' => $listeJoinMissionSalarie
         ]);
     }
 

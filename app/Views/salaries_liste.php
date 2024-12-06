@@ -46,7 +46,7 @@
 
                     '<form method="post" action="' . url_to('salarie_delete', $salarie['ID_SALARIE']) . '">
                             <input type="hidden" name="ID_SALARIE" value="' . $salarie['ID_SALARIE'] . '">
-                            <input type="submit" value="Supprimer" onclick="return confirm(\'Si vous supprimez ce salarié, cela supprimera toutes les affectations auxquelles il est associé. Confirmez-vous ?\')">
+                            <input type="submit" class="bouton"  value="Supprimer" onclick="return confirm(\'Si vous supprimez ce salarié, cela supprimera toutes les affectations auxquelles il est associé. Confirmez-vous ?\')">
                          </form>'
 
                 );
