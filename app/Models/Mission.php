@@ -169,7 +169,7 @@ class Mission extends Model
         // $builder->where('ID_PROFIL', $profilId);
         $builder->delete();
     }
-
+    
     public function verifSalarieMission($missionId, $salarieId)
     {
         $db = \Config\Database::connect();

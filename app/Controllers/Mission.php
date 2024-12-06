@@ -228,6 +228,7 @@ class Mission extends BaseController
         // die(var_dump($profils));
         // foreach ($profils as $idProfil) {
         $this->missionModel->deleteProfilMission($missionId);
+        $this->missionModel->deleteSalarieMission($missionId);
         // }
         // $this->missionModel->deleteMissionProfil($missionId);/
         $this->missionModel->delete($missionId);
