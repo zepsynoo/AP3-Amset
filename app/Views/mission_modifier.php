@@ -33,7 +33,7 @@
             // var_dump($missionJoins);
             // die(var_dump($listeClient));
             // var_dump($listeClient);
-            
+
             ?>
             <label for="ID_CLIENT">Client</label>
             <select name="ID_CLIENT">
@@ -51,9 +51,6 @@
 
                     echo '<option value="' . $client['ID_CLIENT'] . '" ' . $selected . '>' . $client['NOM'] . '</option>';
                 }
-
-
-
                 ?>
             </select>
 
@@ -102,7 +99,7 @@
                     foreach ($profilNotInMissions as $profilNotInMission) {
 
                         // if ($profil['ID_PROFIL'] != $missionJoin['ID_PROFIL']) {
-                    
+
                         echo '<option value="' . $profilNotInMission['ID_PROFIL'] . '">' . $profilNotInMission['LIBELLE'] . '</option>';
                         // }
                     }
