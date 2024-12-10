@@ -12,7 +12,7 @@
 
 <section>
     <div class="form-style">
-        <form action=<?= url_to('profils_create') ?> method="post">
+        <form action=<?= url_to('profils_update') ?> method="post">
             <fieldset>
                 <legend>Modifier Profil</legend>
 
