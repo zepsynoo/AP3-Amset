@@ -71,7 +71,7 @@
                 }
                 ?>
             </fieldset>
-            <input type="submit" value="Modifier">
+            <input type="submit" value="Modifier" onclick="return confirm('Si vous modifier les profils de ceux salarie vous surpprimerais les affectations associer. Voulez-vous confirmer ?')">
         </form>
     </div>
     <div class="form-style">

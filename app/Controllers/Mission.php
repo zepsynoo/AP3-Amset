@@ -47,7 +47,7 @@ class Mission extends BaseController
         // die(var_dump($missionClients)); 
         // $missionProfils = $this->missionModel->getMissionProfil();
         // die(var_dump($missionProfils)); 
-        
+
         $listeJoinMissionSalarie = $this->missionModel->getJoinMissionSalarie();
         // die(var_dump($joinMissionSalarie)); 
 
@@ -174,6 +174,10 @@ class Mission extends BaseController
 
             //     $this->missionModel->addProfil($missionId, $profilId, $nbre);
             // }
+
+            // delete les affectation dans la table salarie_mission
+            // dd($data);
+            $this->missionModel->deleteSalarieMission($missionId);
 
 
             return redirect('mission_liste');
@@ -324,6 +328,7 @@ class Mission extends BaseController
         //Cette partie vérifie si c'est le même
         for ($i = 0; ($i < $nbr); $i++) {
             $salarieId = $this->request->getPost('ID_SALARIE_' . $i);
+            // dd($salarieId);
             $missionId = $this->request->getPost('ID_MISSION_' . $i);
             $salarieId2 = $this->request->getPost('ID_SALARIE_' . ($i + 1));
             // var_dump($data);
@@ -342,6 +347,16 @@ class Mission extends BaseController
                     die();
                     // } elseif ($nombreMission > $nbr) {
                     //     $this->missionModel->deleteSalarieMission($missionId);
+
+                    // elseif(array_count_values($listeSalarie)[$this->request->getPost('ID_SALARIE_' . $i)] > 1 ){
+
+                    // foreach($listeSalarie as $salarieId){
+
+                    //     if(array_count_values($listeSalarie)[$salarieId] > 1 ){
+
+                    //     }
+
+                    // }
                 } else {
 
                     $this->missionModel->addSalarieMission($salarieId, $missionId);

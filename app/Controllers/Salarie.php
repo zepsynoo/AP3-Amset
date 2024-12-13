@@ -131,6 +131,8 @@ class Salarie extends BaseController
 
         $salarieData = $this->request->getpost();
         $this->salarieModel->save($salarieData);
+        
+        $this->salarieModel->deleteMissionSalarie($salarieData['ID_SALARIE']);
 
         return redirect('salarie_liste');
     }

@@ -16,17 +16,13 @@
 // var_dump($listeSalarie);
 // die();
 ?>
-<section>
-    <div class="form-style">
-
-    </div>
-</section>
 
 <section>
     <div class="form-style">
         <form method="post" action="<?= url_to('mission_affect') ?>">
             <fieldset>
                 <legend>Affectation</legend>
+                <p class="red">\Vous ne pouvez pas ajouter deux fois le meme salarier/</p>
                 <div>
                     <?php
                     $y = 0;
