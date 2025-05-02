@@ -11,7 +11,7 @@
 
     <h1>Bienvenue sur la page D'accueil</h1>
 
-    <h2>Page D'accueil (modif E6)</h2>
+    <h2>Page D'accueil (vasi on vas tester une autre modif pour E6)</h2>
 
 
 
