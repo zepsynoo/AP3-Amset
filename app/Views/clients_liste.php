@@ -14,10 +14,12 @@
         <form method=get action=<?= url_to('client_ajout') ?>><button>Ajouter Client</button></form>
         <div class="table-container">
             <?php
+            // creation d'un tableau pour afficher les clients
             use \CodeIgniter\View\Table;
             $tableau = new \CodeIgniter\View\Table();
             $tableau->setHeading('Nom', 'Prenom', 'Email', 'Telephone', 'Adresse', 'Ville', 'Code Postal', 'Raison Social', 'Modifier', 'Supprimer');
 
+            // foreach pour afficher les clients
             foreach ($clients as $client) {
                 $tableau->addRow(
                     $client['NOM'],

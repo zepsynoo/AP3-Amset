@@ -11,7 +11,7 @@
 
     <h1>Bienvenue sur la page D'accueil</h1>
 
-    <h2>Page D'accueil</h2>
+    <h2>Page D'accueil (teste de modif pour l'epreuve E6)</h2>
 
 
 

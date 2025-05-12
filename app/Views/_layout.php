@@ -41,6 +41,7 @@ $rhu = $user && $user->inGroup('rhu');
 
         <?= $this->renderSection('contenu') ?>
 
+        <!-- footer en bas de la page -->
         <footer>
 
             <div class="copyrights">

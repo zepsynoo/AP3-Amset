@@ -46,7 +46,8 @@ class Mission extends Model
     protected $beforeDelete = [];
     protected $afterDelete = [];
 
-    //Methode pour afficher
+    //Methode pour executer une requete sql
+    // pour inserer 
     public function addProfil($idMission, $idProfil, $nombreProfil)
     {
         $db = \Config\Database::connect();
@@ -59,7 +60,9 @@ class Mission extends Model
         ]);
     }
 
-    //Methode pour afficher
+    //fonction pour executer une requete sql
+    // pour faire la jointure entre mission et client
+    // et recuperer les missions d'un client
     public function getClientMissionProfil()
     {
         return (
@@ -72,7 +75,9 @@ class Mission extends Model
         );
     }
 
-    //Methode pour recuperer entre mission et salarie_mission
+    //fonction pour executer une requete sql
+    // pour faire la jointure entre salarie_mission et mission
+    // et recuperer les missions d'un salarie  
     public function getJoinMissionSalarie()
     {
         return (
@@ -121,7 +126,7 @@ class Mission extends Model
     }
 
 
-    // // Join sur mission et profil
+    // Join sur mission et profil
 
     public function getMissionProfil($idmission)
     {

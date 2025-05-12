@@ -6,8 +6,10 @@
 
 </div>
 </header>
+<!-- formulaire d'ajout d'un client -->
 <section>
     <div class="form-style">
+        <!-- route vers le controler Client.php qui vas chercher la function Client_create -->
         <form method="post" action="<?= url_to('client_create') ?>" enctype="multipart/form-data">
             <label for="nom">Nom :</label>
             <input type="text" id="NOM" name="NOM" required>
@@ -32,12 +34,6 @@
 
             <label for="raison_social">Raison Social :</label>
             <input type="text" id="RAISON_SOCIAL" name="RAISON_SOCIAL" required>
-
-            <!-- <label for="image">Choisir une image :</label>
-        <input type="file" name="image" id="image" required>
-
-        <label for="image_name">Nom personnalisé de l'image :</label>
-        <input type="text" id="image_name" name="image_name" placeholder="Entrez un nom pour l'image"> -->
 
             <input type="submit" value="Ajouter">
         </form>
