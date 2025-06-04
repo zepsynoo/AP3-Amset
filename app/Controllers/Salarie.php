@@ -10,12 +10,14 @@ class Salarie extends BaseController
     private $salarieModel;
     private $profilModel;
     private $salarieProfilModel;
+    private $certificationModel;
 
     public function __construct()
     {
         $this->salarieModel = model('Salarie');
         $this->profilModel = model('Profil');
         $this->salarieProfilModel = model('SalarieProfil');
+        $this->certificationModel = model('Certification');
     }
 
     private function isAuthorized(): bool
@@ -44,8 +46,14 @@ class Salarie extends BaseController
             $listeSalaries = $this->salarieModel->recupSalariesDuProfil((int) $profilId);
             // die(var_dump($listeSalaries));
         } else {
-            $listeSalaries = $this->salarieModel->findAllAvecProfils();
+            $listeSalaries = $this->salarieModel->findAllAvecProfilsCertification();
         }
+
+        // die(var_dump($listeSalaries));
+
+        // Récupérer l'ID du profil sélectionné (si présent)
+        $certifID = $this->request->getGet('profil');
+        
 
         // Passer les données à la vue
         return view(
@@ -69,11 +77,15 @@ class Salarie extends BaseController
 
         $idSalaries = $this->salarieModel->find();
         $listeProfils = $this->profilModel->findAll();
+        $listeCertifications = $this->certificationModel->findAll();
+
+        // die(var_dump($listeCertifications));
 
         return view(
             'salaries_ajoute',
             [
                 'listeProfils' => $listeProfils,
+                'listeCertifications' => $listeCertifications,
             ]
         );
     }
@@ -96,6 +108,13 @@ class Salarie extends BaseController
         foreach ($profils as $idProfil) {
             $this->salarieModel->addProfil($idProfil, $nouvelSalarieID);
         }
+
+        $certifications = $this->request->getPost('certification[]');
+        // die(var_dump($certifications));
+        foreach ($certifications as $idCertification) {
+            $this->salarieModel->addCertification($idCertification, $nouvelSalarieID);
+        }
+
 
         return redirect('salarie_liste');
     }

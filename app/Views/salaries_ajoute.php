@@ -45,11 +45,18 @@
                 <label for="ville">Ville :</label>
                 <input id="VILLE_SALARIE" name="VILLE_SALARIE" type="text">
 
-                <label for="ID_PROFIL">Profils</label>
+                <label for="ID_PROFIL">Profils :</label>
                 <p class="red">il faut obligatoirement selection un profils pour le salarie : </p>
                 <?php foreach ($listeProfils as $profil) { ?>
                     <input class="noir" type="checkbox" name="profils[]" value="<?= $profil['ID_PROFIL'] ?>">
                     <label for="profils[]"><?= $profil['LIBELLE'] ?></label><br>
+                <?php } ?>
+
+                <label for="ID_CERTIFICATION">Certification :</label>
+                <p class="red">il faut obligatoirement selection un profils pour le salarie : </p>
+                <?php foreach ($listeCertifications as $certif) { ?>
+                    <input class="noir" type="checkbox" name="certification[]" value="<?= $certif['ID_CERTIFICATION'] ?>">
+                    <label for="certification[]"><?= $certif['LIBELLE_CERTIFICATION'] ?></label><br>
                 <?php } ?>
 
                 <input type="submit" value="Valider">

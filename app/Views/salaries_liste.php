@@ -29,7 +29,7 @@
             <?php
             use \CodeIgniter\View\Table;
             $table = new \CodeIgniter\View\Table();
-            $table->setHeading('Prenom', 'Nom', 'Civilité', 'Email', 'Téléphone', 'Adresse', 'Code-Postal', 'Ville', 'Profils', 'Modifier', 'Supprimer');
+            $table->setHeading('Prenom', 'Nom', 'Civilité', 'Email', 'Téléphone', 'Adresse', 'Code-Postal', 'Ville', 'Profils','Certification', 'Modifier', 'Supprimer');
 
             foreach ($listeSalaries as $salarie) {
                 $table->addRow(
@@ -42,6 +42,7 @@
                     esc($salarie['CODE_POSTAL_SALARIE']),
                     esc($salarie['VILLE_SALARIE']),
                     esc($salarie['profil']), // Profils concaténés
+                    esc($salarie['LIBELLE_CERTIFICATION']), // Certification concaténée
                     '<a href="' . url_to('salarie_modif', $salarie['ID_SALARIE']) . '"><button>Modifier</button></a>',
 
                     '<form method="post" action="' . url_to('salarie_delete', $salarie['ID_SALARIE']) . '">

@@ -137,4 +137,50 @@ class Salarie extends Model
         $builder->delete();
     }
 
+
+    public function recupSalariesDeCertification($idProfil = null)
+    {
+        $builder = $this->db->table('salarie s')
+            ->select('s.*, GROUP_CONCAT(p.LIBELLE SEPARATOR ", ") as certification')
+            ->join('salarie_profil sp', 's.ID_SALARIE = sp.ID_SALARIE')
+            ->join('profil p', 'p.ID_PROFIL = sp.ID_PROFIL');
+
+        // Filtrer par ID_PROFIL si nécessaire
+        if ($idProfil !== null) {
+            $builder->where('p.ID_CERTIFICATION', $idProfil);
+        }
+
+        return $builder->groupBy('s.ID_SALARIE, p.ID_PROFIL')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function findAllAvecProfilsCertification()
+    {
+        return $this->db->table('salarie')
+            ->select('salarie.*, GROUP_CONCAT(profil.LIBELLE SEPARATOR ", ") as profil , GROUP_CONCAT(certification.LIBELLE_CERTIFICATION SEPARATOR ", ") as LIBELLE_CERTIFICATION')
+            ->join('salarie_profil', 'salarie.ID_SALARIE = salarie_profil.ID_SALARIE', 'left')
+            ->join('profil', 'salarie_profil.ID_PROFIL = profil.ID_PROFIL', 'left')
+            ->join('certification_salarie', 'certification_salarie.ID_SALARIE = salarie.ID_SALARIE', 'left')
+            ->join('certification', 'certification.ID_CERTIFICATION = certification_salarie.ID_CERTIFICATION', 'left')
+            ->groupBy('salarie.ID_SALARIE')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function addCertification($idCertification, $nouvelSalarieID)
+    {
+        if ($idCertification != null) {
+            $db = \Config\Database::connect();
+            $builder = $db->table('certification_salarie');
+
+            $builder->insert([
+                'ID_CERTIFICATION' => $idCertification,
+                'ID_SALARIE' => $nouvelSalarieID
+            ]);
+
+            // var_dump($idProfil, $idSalarie);
+            // die();
+        }
+    }
 }
